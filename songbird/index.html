@@ -1,22 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="./assets/styles/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/styles/style.css">
 </head>
 <body>
-	<header>
+  <header class="header">
+    <div class="header__wrapper">
+      <h1 class="main-title">Songbird</h1>
+      <div class="score">
+        <span class="score__text"></span>
+        <span class="score__number"></span>
+      </div>
+    </div>
+  </header>
+  <main>
+<div class="app">
+<div class="start">
+<button class="button start__button">Start game</button>
+</div>
+<div class="quiz">
+<ul class="quiz__sections">
+  <li class="level"></li>
+  <li class="level"></li>
+  <li class="level"></li>
+  <li class="level"></li>
+  <li class="level"></li>
+  <li class="level"></li>
+</ul>	
+<div class="quiz__card">
+<img src="" alt="" class="quiz__card__img">
+<span class="quiz__card__name"></span>
+<div class="audio"></div>
+</div>
+<div class="quiz__variants">
+<ul class="variants_list">
+  <li class="variant"><span class="radio-button"></span></li>
+  <li class="variant"><span class="radio-button"></span></li>
+  <li class="variant"><span class="radio-button"></span></li>
+  <li class="variant"><span class="radio-button"></span></li>
+  <li class="variant"><span class="radio-button"></span></li>
+  <li class="variant"><span class="radio-button"></span></li>
+</ul>
+</div>
+<div class="quiz__variant-description">
+  <img src="" alt="" class="quiz__card__img variant__image">
+  <span class="quiz__card__name variant__name"></span>
+  <span class="quiz__card__name variant__name-latin"></span>
+  
 
-	</header>
-	<main>
+</div>
+<button class="button quiz_button"></button>
+</div>
+<div class="records">
 
-	</main>
-	<footer>
-		
-	</footer>
-	<script src="./script.js" type="module"></script>
+</div>
+</div>
+  </main>
+  <footer class="footer">
+    <div class="socila-logos">
+      <a href="https://rs.school/js/" class="rs"></a>
+      <span><a href="https://github.com/denismezhenin" class="link footer_link"><img src="./assets/svg/github.svg" alt="github" class="github"></a></span>
+    </div>
+  </footer>
+  <script src="./script/script.js" type="module"></script>
 </body>
 </html>
