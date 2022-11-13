@@ -136,15 +136,16 @@ const toogleVolumeButton = () => {
 
 const muteAudio = () => {
   if (audio.muted) {
-    audio.mute = false
+    audio.muted = false;
   } else {
-    audio.mute = true
+    audio.muted = true;
   }
-}
+};
 
 audioPlayButton.addEventListener('click', playAudio);
 audioPlayButton.addEventListener('click', tooglePlayButton);
 audioVolumeButton.addEventListener('click', toogleVolumeButton);
 audioVolumeButton.addEventListener('click', muteAudio);
+audio.onended = () => tooglePlayButton();
 
 
