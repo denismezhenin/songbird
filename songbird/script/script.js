@@ -64,11 +64,87 @@ const getRandomNumber = () => {
 getRandomNumber();
 
 const isRight = (index) => {
-if (index == randomNum) {
-    birdImage.src = birdsData[level][index].image;
-    birdName.textContent = birdsData[level][index].name;
-}
-}
-
+  if (index == randomNum) {
+    birdImage.src = birdsData[level][randomNum].image;
+    birdName.textContent = birdsData[level][randomNum].name;
+};
+};
 
 // card quiz card end
+
+// audio starts
+
+const audioTimeline = document.querySelector('.audio__timeline');
+const audioProgressBar = document.querySelector('.audio__progress-bar');
+const audioPlayButton = document.querySelector('.audio__play-button');
+const audioCurrent = document.querySelector('.audio__current-time');
+const audioTotalTime = document.querySelector('.audio__total-time');
+const audioVolumeButton = document.querySelector('.audio__volume-button');
+const audioVolumeRange = document.querySelector('.audio__volume-range');
+
+const getAudioTime = (num) => {
+  let seconds = parseInt(num, 10);
+  const minutes = parseInt(seconds / 60, 10);
+  // console.log(num)
+  seconds -= minutes * 60;
+  return `${minutes}:${String(seconds).padStart(2, 0)}`;
+};
+
+// audio ends
+
+const audio = new Audio(`${birdsData[level][randomNum].audio}`);
+
+audio.addEventListener(
+  'loadeddata',
+  () => {
+    audioTotalTime.textContent = getAudioTime(audio.duration);
+  },
+);
+
+audioTimeline.addEventListener('click', (e) => {
+  const rangeWidth = window.getComputedStyle(audioTimeline).width;
+  const skipTime = (e.offsetX / parseInt(rangeWidth, 10)) * audio.duration;
+  audio.currentTime = skipTime;
+});
+
+audioVolumeRange.addEventListener('click', (e) => {
+  const volumeContainerWidth = window.getComputedStyle(audioVolumeRange);
+  const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
+  audio.volume = skipVolume;
+  audioProgressBar.style.width = `${skipVolume * 100}%`;
+});
+
+setInterval(() => {
+  audioProgressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+  audioCurrent.textContent = getAudioTime(audio.currentTime);
+}, 500);
+
+const playAudio = () => {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  };
+};
+const tooglePlayButton = () => {
+  audioPlayButton.classList.toggle('pause');
+};
+
+const toogleVolumeButton = () => {
+  audioVolumeButton.classList.toggle('mute');
+};
+
+const muteAudio = () => {
+  if (audio.muted) {
+    audio.mute = false
+  } else {
+    audio.mute = true
+  }
+}
+
+audioPlayButton.addEventListener('click', playAudio);
+audioPlayButton.addEventListener('click', tooglePlayButton);
+audioVolumeButton.addEventListener('click', toogleVolumeButton);
+audioVolumeButton.addEventListener('click', muteAudio);
+
+

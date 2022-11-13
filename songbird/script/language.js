@@ -24,7 +24,7 @@ const language = [
       startbutton: 'Начать игру',
       nextLevel: 'Следующий уровень',
       score: 'Счет',
-    }
-  ]
-]
+    },
+  ],
+];
 export default language;

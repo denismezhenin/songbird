@@ -1,1 +1,79 @@
-/*# sourceMappingURL=style.css.map */
+.rs {
+  height: 33.65px;
+  width: 100px;
+  background-image: url("../svg/rs_school_js.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0px;
+  padding: 0px;
+  color: #FFFFFF;
+}
+
+.audio {
+  background-color: black;
+  color: white;
+}
+
+.audio-icon {
+  width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.audio__play-button {
+  background-image: url("../svg/play.svg");
+}
+
+.pause {
+  background-image: url("../svg/pause.svg");
+}
+
+.audio__volume-button {
+  background-image: url("../svg/volume.svg");
+}
+
+.mute {
+  background-image: url("../svg/volume-mute.svg");
+}
+
+.volume-container {
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.volume-container .volume-button {
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+.volume-container .volume-button .volume {
+  transform: scale(0.7);
+}
+.volume-container .volume-slider {
+  position: absolute;
+  left: -3px;
+  top: 15px;
+  z-index: -1;
+  width: 0;
+  height: 15px;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6666666667);
+  transition: 0.25s;
+}
+.volume-container .volume-slider .volume-percentage {
+  background: coral;
+  height: 100%;
+  width: 75%;
+}
+.volume-container:hover .volume-slider {
+  left: -123px;
+  width: 120px;
+}/*# sourceMappingURL=style.css.map */
