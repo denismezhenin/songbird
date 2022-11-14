@@ -2,7 +2,19 @@
 .audio {
   background-color: black;
   color: white;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
 }
+
+.audio__controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .audio-icon {
   width: 32px;
   height: 32px;
@@ -33,41 +45,45 @@
   background-image: url("../svg/volume-mute.svg");
 }
 
-.volume-container {
+.audio__timeline {
+  background: white;
+  width: 100%;
+  position: relative;
   cursor: pointer;
-  .volume-button {
-    height: 26px;
-    display: flex;
-    align-items: center;
-    .volume {
-      transform: scale(0.7);
-    }
+  height: 5px;
+  .audio__progress-bar {
+    background: coral;
+    width: 0%;
+    height: 100%;
+    transition: 0.25s;
   }
-  
+}
+
+.audio__volume_container {
+  cursor: pointer;
   position: relative;
   z-index: 2;
-  .volume-slider {
+  .audio__volume-range {
     position: absolute;
-    left: -3px; top: 15px;
+    left: -3px; top: 8.5px;
     z-index: -1;
-    width: 0;
+    // width: 0px;
     height: 15px;
     background: white;
     box-shadow: 0 0 20px #000a;
     transition: .25s;
-    .volume-percentage {
+    .audio__value {
       background: coral;
       height: 100%;
       width: 75%;
     }
   }
   &:hover {
-    .volume-slider {
-      left: -123px;
+    .audio__volume-range{
+      left: -121px;
       width: 120px;
     }
   }
 }
-
 
 

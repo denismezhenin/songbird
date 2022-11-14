@@ -1,5 +1,6 @@
 .rs {
-  height: 33.65px;
+  display: inline-block;
+  height: 24px;
   width: 100px;
   background-image: url("../svg/rs_school_js.svg");
   background-size: contain;
@@ -12,6 +13,17 @@
 .audio {
   background-color: black;
   color: white;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.audio__controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .audio-icon {
@@ -44,36 +56,52 @@
   background-image: url("../svg/volume-mute.svg");
 }
 
-.volume-container {
+.audio__timeline {
+  background: white;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  height: 5px;
+}
+.audio__timeline .audio__progress-bar {
+  background: coral;
+  width: 0%;
+  height: 100%;
+  transition: 0.25s;
+}
+
+.audio__volume_container {
   cursor: pointer;
   position: relative;
   z-index: 2;
 }
-.volume-container .volume-button {
-  height: 26px;
-  display: flex;
-  align-items: center;
-}
-.volume-container .volume-button .volume {
-  transform: scale(0.7);
-}
-.volume-container .volume-slider {
+.audio__volume_container .audio__volume-range {
   position: absolute;
   left: -3px;
-  top: 15px;
+  top: 8.5px;
   z-index: -1;
-  width: 0;
   height: 15px;
   background: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.6666666667);
   transition: 0.25s;
 }
-.volume-container .volume-slider .volume-percentage {
+.audio__volume_container .audio__volume-range .audio__value {
   background: coral;
   height: 100%;
   width: 75%;
 }
-.volume-container:hover .volume-slider {
-  left: -123px;
+.audio__volume_container:hover .audio__volume-range {
+  left: -121px;
   width: 120px;
+}
+
+.quiz__card {
+  display: flex;
+}
+
+.quiz__card__img {
+  width: 200px;
+  height: 155px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }/*# sourceMappingURL=style.css.map */

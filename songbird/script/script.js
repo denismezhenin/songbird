@@ -81,6 +81,7 @@ const audioCurrent = document.querySelector('.audio__current-time');
 const audioTotalTime = document.querySelector('.audio__total-time');
 const audioVolumeButton = document.querySelector('.audio__volume-button');
 const audioVolumeRange = document.querySelector('.audio__volume-range');
+const audioVolumeValue = document.querySelector('.audio__value');
 
 const getAudioTime = (num) => {
   let seconds = parseInt(num, 10);
@@ -98,6 +99,7 @@ audio.addEventListener(
   'loadeddata',
   () => {
     audioTotalTime.textContent = getAudioTime(audio.duration);
+    audio.volume = 0.75;
   },
 );
 
@@ -108,16 +110,21 @@ audioTimeline.addEventListener('click', (e) => {
 });
 
 audioVolumeRange.addEventListener('click', (e) => {
-  const volumeContainerWidth = window.getComputedStyle(audioVolumeRange);
+  const volumeContainerWidth = window.getComputedStyle(audioVolumeRange).width;
   const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
+  // console.log(e.offsetX)
+  console.log(volumeContainerWidth)
+  // console.log(parseInt(volumeContainerWidth, 10))
+  console.log(skipVolume)
   audio.volume = skipVolume;
-  audioProgressBar.style.width = `${skipVolume * 100}%`;
+  audioVolumeValue.style.width = `${skipVolume * 100}%`;
+  // console.log(audio.volume);
 });
 
 setInterval(() => {
   audioProgressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
   audioCurrent.textContent = getAudioTime(audio.currentTime);
-}, 500);
+}, 250);
 
 const playAudio = () => {
   if (audio.paused) {
