@@ -23,7 +23,7 @@
       <button class="button start__button">Start game</button>
       </div>
     <div class="quiz">
-    <ul class="quiz__sections">
+    <ul class="quiz__sections block__main-colored">
       <li class="level"></li>
       <li class="level"></li>
       <li class="level"></li>
@@ -31,8 +31,10 @@
       <li class="level"></li>
       <li class="level"></li>
     </ul>	
-    <div class="quiz__card">
-    <img src="./assets/images/bird.jpg" alt="" class="quiz__card__img">
+    <div class="quiz__card block__second-colored">
+      <div class="quiz__image">
+        <img src="./assets/images/bird.jpg" alt="" class="quiz__card__img">
+      </div>
     <div class="audio">
       <span class="quiz__card__name">Loading...</span>
       <div class="audio__timeline">
@@ -54,7 +56,7 @@
       </div>
     </div>
     </div>
-    <div class="quiz__variants">
+    <div class="quiz__variants block__second-colored">
       <ul class="variants_list">
         <li class="variant"><span class="radio-button"></span></li>
         <li class="variant"><span class="radio-button"></span></li>
@@ -64,13 +66,35 @@
         <li class="variant"><span class="radio-button"></span></li>
       </ul>
     </div>
-    <div class="quiz__variant-description">
-      <img src="" alt="" class="quiz__card__img variant__image">
-      <span class="quiz__card__name variant__name"></span>
-      <span class="quiz__card__name variant__name-latin"></span>
-      <p class="variant__description"></p>
+    <div class="quiz__variant-description block__second-colored">
+      <div class="variant__image-wrapper">
+        <img src="" alt="" class="quiz__card__img variant__image">
+      </div>
+      <div class="variant__name__wrapper">
+        <span class="quiz__card__name variant__name"></span>
+        <span class="quiz__card__name variant__name-latin"></span>
+        <div class="audio">
+          <div class="audio__timeline">
+            <div class="audio__progress-bar"></div>
+          </div>
+          <div class="audio__controls">
+            <button class="audio__play-button audio-icon"></button>
+            <div class="audio__time">
+              <span class="audio__current-time">00:00</span>
+              <span> | </span>
+              <span class="audio__total-time"></span>
+            </div>
+            <div class="audio__volume_container">
+              <button class="audio__volume-button audio-icon"></button>
+              <div class="audio__volume-range">
+                <div class="audio__value"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       
-
+      <p class="variant__description"></p>
     </div>
     <button class="button quiz_button"></button>
     </div>

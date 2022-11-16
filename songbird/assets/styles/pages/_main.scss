@@ -1,6 +1,9 @@
 // .app {
 
 // }
+.main {
+  flex: 1 0 auto;
+}
 
 .quiz {
   width: 100%;
@@ -13,6 +16,12 @@
 display: flex;
 padding: 0;
 padding-inline-start: 0;
+margin-bottom: 25px;
+
+@include small-desktop {
+flex-wrap: wrap;
+}
+
 }
 
 .level {
@@ -24,7 +33,17 @@ padding: 5px;
 .quiz__card {
   width: 100%;
   display: flex;
-   max-width: $wrapper-width;
+  // max-width: $wrapper-width;
+  padding: 10px;
+  margin-bottom: 25px;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+.quiz__image {
+  // padding: px;
+  text-align: center;
 }
 
 .quiz__card__img {
@@ -33,7 +52,56 @@ padding: 5px;
   object-fit: cover;
 }
 
+// .
+
+
 .quiz__variants, .quiz__variant-description {
 width: 45%;
-margin: 0;
+margin: 0 auto;
+margin-bottom: 25px;
+
+@include mobile {
+  width: 100%;
 }
+}
+
+// varriant start
+
+.variant {
+  padding-bottom: 10px;
+  border: 1px solid $audio-timeline-color;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+.variants_list {
+  padding: 0;
+  margin: 0;
+}
+
+//description start
+
+.quiz__variant-description {
+display: flex;
+flex-wrap: wrap;
+
+@include tablet {
+  flex-direction: column;
+}
+
+}
+
+.variant__image-wrapper, .variant__name__wrapper {
+  width: 50%;
+
+  @include tablet {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.variant__name__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+

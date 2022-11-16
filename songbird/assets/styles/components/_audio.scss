@@ -1,7 +1,7 @@
 
 .audio {
-  background-color: black;
-  color: white;
+  // background-color: black;
+  // color: white;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -46,13 +46,13 @@
 }
 
 .audio__timeline {
-  background: white;
+  background: $audio-timeline-color;
   width: 100%;
   position: relative;
   cursor: pointer;
-  height: 5px;
+  height: 10px;
   .audio__progress-bar {
-    background: coral;
+    background: $main-darker;
     width: 0%;
     height: 100%;
     // transition: 0.25s;
@@ -69,11 +69,11 @@
     z-index: -1;
     // width: 0px;
     height: 15px;
-    background: white;
+    background: $audio-timeline-color;
     box-shadow: 0 0 20px #000a;
     // transition: .25s;
     .audio__value {
-      background: coral;
+      background: $main-darker;
       height: 100%;
       width: 75%;
     }

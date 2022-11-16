@@ -91,8 +91,6 @@ const getAudioTime = (num) => {
   return `${minutes}:${String(seconds).padStart(2, 0)}`;
 };
 
-// audio ends
-
 const audio = new Audio(`${birdsData[level][randomNum].audio}`);
 
 audio.addEventListener(
@@ -155,4 +153,5 @@ audioVolumeButton.addEventListener('click', toogleVolumeButton);
 audioVolumeButton.addEventListener('click', muteAudio);
 audio.onended = () => tooglePlayButton();
 
+// audio ends
 
