@@ -1,9 +1,39 @@
-.quiz__card {
+// .app {
+
+// }
+
+.quiz {
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
+}
+
+.quiz__sections {
+  width: 100%;
+display: flex;
+padding: 0;
+padding-inline-start: 0;
+}
+
+.level {
+  flex-grow: 1;
+  text-align: center;
+padding: 5px;
+}
+
+.quiz__card {
+  width: 100%;
+  display: flex;
+   max-width: $wrapper-width;
 }
 
 .quiz__card__img {
   width: 200px;
   height: 155px;
   object-fit: cover;
+}
+
+.quiz__variants, .quiz__variant-description {
+width: 45%;
+margin: 0;
 }

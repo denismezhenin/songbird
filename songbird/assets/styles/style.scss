@@ -1,7 +1,14 @@
 @charset "UTF-8";
+@import
+  'abstracts/variables',
+  'abstracts/mixins';
 @import 
 'layouts/footer';
 @import 
-'components/audio';
+'components/audio',
+'components/buttons';
+@import
+  'base/base',
+  'base/fonts';
 @import 
 'pages/main';
