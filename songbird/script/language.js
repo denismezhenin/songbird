@@ -1,22 +1,28 @@
 const language = [
   [
     {
-      section: 'Разминка',
+      ru: 'Разминка',
+      en: 'Warm-up',
     },
     {
-      section: 'Воробьиные',
+      ru: 'Воробьиные',
+      en: 'Old World sparrows',
     },
     {
-      section: 'Лестные птицы',
+      ru: 'Лесные птицы',
+      en: 'Forest birds',
     },
     {
-      section: 'Хищные птицы',
+      ru: 'Хищные птицы',
+      en: 'Predatory birds',
     },
     {
-      section: 'Певчие птицы',
+      ru: 'Певчие птицы',
+      en: 'Songbirds',
     },
     {
-      section: 'Морские птицы',
+      ru: 'Морские птицы',
+      en: 'Seabird',
     },
   ],
   [
@@ -24,6 +30,10 @@ const language = [
       startbutton: 'Начать игру',
       nextLevel: 'Следующий уровень',
       score: 'Счет',
+      cor: {
+        a: 'da',
+        b: 'ca'
+      }
     },
   ],
 ];

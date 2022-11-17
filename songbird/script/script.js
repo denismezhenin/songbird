@@ -1,12 +1,22 @@
-import birdsData from './birds-data.js';
-import language from './language.js';
+import birdsDataRu from './birds-data.js';
+import birdsDataEn from './birds-data-en.js';
+import translation from './language.js';
 
+let birdsData;
+
+let language = localStorage.getItem('lan');
+if (!localStorage.getItem('lan')) {
+  language = 'ru';
+}
+
+language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
 // fill with text start
+
 const levels = document.querySelectorAll('.level');
 let level = 0;
 
 levels.forEach((el, index) => {
-  el.textContent = language[0][index].section;
+  el.textContent = translation[0][index][language];
 });
 
 // fill with text end
@@ -18,19 +28,17 @@ const SortArray = (arr) => {
   arr = arr.sort(() => Math.random() - 0.5);
   return arr;
 }
+SortArray(variants);
 
 const showVariants = () => {
-  variants = SortArray(variants);
+  //  variants = SortArray(variants);
   // console.log(sortArray)
   variants.forEach((el, index) => {
     el.textContent = birdsData[level][index].name;
   });
 }
 
-showVariants()
-
-
-
+showVariants();
 
 // mix variants end
 
@@ -41,15 +49,17 @@ const variantLatinName = document.querySelector('.variant__name-latin');
 const variantDescription = document.querySelector('.variant__description');
 const variantsWrapper = document.querySelector('.variant__wrapper');
 
-variantsWrapper.style.display = 'none'
+variantsWrapper.style.display = 'none';
 
 const getVariant = (index) => {
-  variantsWrapper.style.display = ''
+  variantsWrapper.style.display = '';
   variantImage.src = birdsData[level][index].image;
   variantName.textContent = birdsData[level][index].name;
   variantLatinName.textContent = birdsData[level][index].species;
   variantDescription.textContent = birdsData[level][index].description;
 };
+
+
 
 variants.forEach((el, index) => {
   el.addEventListener('click', () => {
@@ -61,17 +71,33 @@ variants.forEach((el, index) => {
 
 // variant description end
 
+// score start
+
+const score = document.querySelector('.score__number');
+
+const scoreBuffer = new Set()
+
+const addScore = (arr) => {
+  console.log(scoreBuffer)
+  if (!NextLevelButton.classList.contains('quiz_button_active')) {
+    score.innerHTML = +score.innerHTML + 5 - arr.size;
+    scoreBuffer.clear();
+  }
+}
+
+// score end
+
 // card quiz card start
 
 const birdImage = document.querySelector('.quiz__card__img');
 const birdName = document.querySelector('.quiz__card__name');
 const NextLevelButton = document.querySelector('.quiz_button');
-let randomNum; 
+let randomNum;
 
 const getRandomNumber = () => {
   randomNum = Math.round(Math.random() * 5);
   // console.log(randomNum)
-}
+};
 getRandomNumber();
 
 const showRightAnswer = () => {
@@ -81,43 +107,48 @@ const showRightAnswer = () => {
 
 const highlightLevel = () => {
   levels.forEach((el, index) => {
-   if (level == index) {
-    levels[index].classList.add('level_active')
-    level != 0 ? levels[index - 1].classList.remove('level_active') : null
-   }
-  
+    if (level == index) {
+      levels[index].classList.add('level_active');
+      // eslint-disable-next-line no-unused-expressions
+      level != 0 ? levels[index - 1].classList.remove('level_active') : null;
+    }
   });
-}
-highlightLevel()
+};
+highlightLevel();
 
 const returnToBase = () => {
-  variantsWrapper.style.display = 'none'
-  birdImage.src = './assets/images/bird.jpg'
+  variantsWrapper.style.display = 'none';
+  birdImage.src = './assets/images/bird.jpg';
   birdName.textContent = '*****';
-}
+};
 
 const nextLevel = () => {
-  showVariants()
-  NextLevelButton.removeEventListener('click', nextLevel)
-  NextLevelButton.classList.remove('quiz_button_active')
-  getRandomNumber()
-  returnToBase()
-  highlightLevel()
+  level += 1;
+  // SortArray(variants);
+  showVariants();
+  NextLevelButton.removeEventListener('click', nextLevel);
+  NextLevelButton.classList.remove('quiz_button_active');
+  getRandomNumber();
+  returnToBase();
+  highlightLevel();
+  scoreBuffer.clear();
 }
 
 const activatedNextLevelButton = () => {
-  NextLevelButton.classList.add('quiz_button_active')
-  NextLevelButton.addEventListener('click', nextLevel)
+  NextLevelButton.classList.add('quiz_button_active');
+  NextLevelButton.addEventListener('click', nextLevel);
 }
 
 const isRight = (index) => {
   if (index == randomNum) {
-    showRightAnswer()
-    level++
-    activatedNextLevelButton()
+    showRightAnswer();
+    addScore(scoreBuffer);
+    activatedNextLevelButton();
+  } else {
+    scoreBuffer.add(index);
+    console.log(scoreBuffer)
+  }
 };
-};
-
 
 // card quiz card end
 
@@ -160,9 +191,9 @@ audioVolumeRange.addEventListener('click', (e) => {
   const volumeContainerWidth = window.getComputedStyle(audioVolumeRange).width;
   const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
   // console.log(e.offsetX)
-  console.log(volumeContainerWidth)
+  console.log(volumeContainerWidth);
   // console.log(parseInt(volumeContainerWidth, 10))
-  console.log(skipVolume)
+  console.log(skipVolume);
   audio.volume = skipVolume;
   audioVolumeValue.style.width = `${skipVolume * 100}%`;
   // console.log(audio.volume);
@@ -203,4 +234,3 @@ audioVolumeButton.addEventListener('click', muteAudio);
 audio.onended = () => tooglePlayButton();
 
 // audio ends
-
