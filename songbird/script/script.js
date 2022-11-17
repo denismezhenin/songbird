@@ -18,11 +18,17 @@ const SortArray = (arr) => {
   arr = arr.sort(() => Math.random() - 0.5);
   return arr;
 }
-variants = SortArray(variants);
-// console.log(sortArray)
-variants.forEach((el, index) => {
-  el.textContent = birdsData[level][index].name;
-});
+
+const showVariants = () => {
+  variants = SortArray(variants);
+  // console.log(sortArray)
+  variants.forEach((el, index) => {
+    el.textContent = birdsData[level][index].name;
+  });
+}
+
+showVariants()
+
 
 
 
@@ -33,8 +39,12 @@ const variantImage = document.querySelector('.variant__image');
 const variantName = document.querySelector('.variant__name');
 const variantLatinName = document.querySelector('.variant__name-latin');
 const variantDescription = document.querySelector('.variant__description');
+const variantsWrapper = document.querySelector('.variant__wrapper');
+
+variantsWrapper.style.display = 'none'
 
 const getVariant = (index) => {
+  variantsWrapper.style.display = ''
   variantImage.src = birdsData[level][index].image;
   variantName.textContent = birdsData[level][index].name;
   variantLatinName.textContent = birdsData[level][index].species;
@@ -55,7 +65,8 @@ variants.forEach((el, index) => {
 
 const birdImage = document.querySelector('.quiz__card__img');
 const birdName = document.querySelector('.quiz__card__name');
-let randomNum
+const NextLevelButton = document.querySelector('.quiz_button');
+let randomNum; 
 
 const getRandomNumber = () => {
   randomNum = Math.round(Math.random() * 5);
@@ -63,12 +74,50 @@ const getRandomNumber = () => {
 }
 getRandomNumber();
 
+const showRightAnswer = () => {
+  birdImage.src = birdsData[level][randomNum].image;
+  birdName.textContent = birdsData[level][randomNum].name;
+}
+
+const highlightLevel = () => {
+  levels.forEach((el, index) => {
+   if (level == index) {
+    levels[index].classList.add('level_active')
+    level != 0 ? levels[index - 1].classList.remove('level_active') : null
+   }
+  
+  });
+}
+highlightLevel()
+
+const returnToBase = () => {
+  variantsWrapper.style.display = 'none'
+  birdImage.src = './assets/images/bird.jpg'
+  birdName.textContent = '*****';
+}
+
+const nextLevel = () => {
+  showVariants()
+  NextLevelButton.removeEventListener('click', nextLevel)
+  NextLevelButton.classList.remove('quiz_button_active')
+  getRandomNumber()
+  returnToBase()
+  highlightLevel()
+}
+
+const activatedNextLevelButton = () => {
+  NextLevelButton.classList.add('quiz_button_active')
+  NextLevelButton.addEventListener('click', nextLevel)
+}
+
 const isRight = (index) => {
   if (index == randomNum) {
-    birdImage.src = birdsData[level][randomNum].image;
-    birdName.textContent = birdsData[level][randomNum].name;
+    showRightAnswer()
+    level++
+    activatedNextLevelButton()
 };
 };
+
 
 // card quiz card end
 

@@ -106,7 +106,7 @@
   margin-bottom: 25px;
   background-color: rgba(244, 244, 244, 0.62);
 }
-.quiz_button:hover {
+.quiz_button_active {
   background-color: #5b87a9;
   -webkit-backdrop-filter: blur(97px);
           backdrop-filter: blur(97px);
@@ -192,6 +192,9 @@ li {
   text-align: center;
   padding: 5px;
 }
+.level_active {
+  background-color: #376588;
+}
 
 .quiz__card {
   width: 100%;
@@ -239,12 +242,12 @@ li {
   margin: 0;
 }
 
-.quiz__variant-description {
+.variant__wrapper {
   display: flex;
   flex-wrap: wrap;
 }
 @media (max-width: 999px) {
-  .quiz__variant-description {
+  .variant__wrapper {
     flex-direction: column;
   }
 }

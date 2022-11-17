@@ -28,6 +28,11 @@ flex-wrap: wrap;
   flex-grow: 1;
   text-align: center;
 padding: 5px;
+
+&_active {
+background-color: $main-darker;
+}
+
 }
 
 .quiz__card {
@@ -81,7 +86,7 @@ margin-bottom: 25px;
 
 //description start
 
-.quiz__variant-description {
+.variant__wrapper {
 display: flex;
 flex-wrap: wrap;
 
