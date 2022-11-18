@@ -16,37 +16,35 @@ const languageSelect = document.querySelectorAll('.language-selection')
 languageSelect.forEach((element, index) => {
   element.innerHTML.toLocaleLowerCase() == language ? element.classList.add('language-selection_active') : element.classList.remove('language-selection_active');
   element.addEventListener('click', () => {
-   
     if (index == 0) {
-      language = 'ru'
-      language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
-      localStorage.setItem('lan', language)
-      setText()
-      showVariants()
-      languageSelect[0].classList.add('language-selection_active')
-      languageSelect[1].classList.remove('language-selection_active')
+      language = 'ru';
+      birdsData = birdsDataRu; 
+      localStorage.setItem('lan', language);
+      setText();
+      showVariants();
+      languageSelect[0].classList.add('language-selection_active');
+      languageSelect[1].classList.remove('language-selection_active');
     } else {
-      language = 'en'
-      language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
-      localStorage.setItem('lan', language)
-      showVariants()
-      setText()
-      languageSelect[0].classList.remove('language-selection_active')
-      languageSelect[1].classList.add('language-selection_active')
+      language = 'en';
+      birdsData = birdsDataEn;
+      localStorage.setItem('lan', language);
+      showVariants();
+      setText();
+      languageSelect[0].classList.remove('language-selection_active');
+      languageSelect[1].classList.add('language-selection_active');
     }
-  })
-})
+  });
+});
 
 const setText = () => {
   document.querySelector('.start__button').textContent = translation[1][0].startbutton[language];
   document.querySelector('.quiz_button').textContent = translation[1][0].nextLevel[language];
   document.querySelector('.variant__base__words').textContent = translation[1][0].variantPreview[language];
   document.querySelector('.score__text').textContent = translation[1][0].score[language];
-}
-setText()
+};
+setText();
 
 language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
-
 
 const levels = document.querySelectorAll('.level');
 let level = 0;
@@ -98,8 +96,6 @@ const getVariant = (index) => {
   variantDescription.textContent = birdsData[level][index].description;
 };
 
-
-
 variants.forEach((el, index) => {
   el.addEventListener('click', () => {
     console.log(index);
@@ -114,10 +110,10 @@ variants.forEach((el, index) => {
 
 const score = document.querySelector('.score__number');
 
-const scoreBuffer = new Set()
+const scoreBuffer = new Set();
 
 const addScore = (arr) => {
-  console.log(scoreBuffer)
+  // console.log(scoreBuffer)
   if (!NextLevelButton.classList.contains('quiz_button_active')) {
     score.innerHTML = +score.innerHTML + 5 - arr.size;
     scoreBuffer.clear();
@@ -171,22 +167,40 @@ const nextLevel = () => {
   returnToBase();
   highlightLevel();
   scoreBuffer.clear();
-}
+};
 
 const activatedNextLevelButton = () => {
   NextLevelButton.classList.add('quiz_button_active');
   NextLevelButton.addEventListener('click', nextLevel);
-}
+};
 
 const isRight = (index) => {
   if (index == randomNum) {
+    changeCircleColor(index, 'green');
+    playSound('right');
     showRightAnswer();
     addScore(scoreBuffer);
     activatedNextLevelButton();
   } else {
     scoreBuffer.add(index);
-    console.log(scoreBuffer)
+    changeCircleColor(index, 'red');
+    playSound('wrong');
+    console.log(scoreBuffer);
   }
+};
+
+const changeCircleColor = (index, color) => {
+  if (!NextLevelButton.classList.contains('quiz_button_active')) {
+    variants[index].style.setProperty('--circleColor', `${color}`);
+  };
+};
+
+const playSound = (type) => {
+  if (!NextLevelButton.classList.contains('quiz_button_active')) {
+    const audio = new Audio(`../assets/audio/${type}.mp3`);
+    audio.volume = 0.5;
+    audio.play();
+  };
 };
 
 // card quiz card end

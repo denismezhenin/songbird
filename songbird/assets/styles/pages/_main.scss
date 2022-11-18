@@ -77,6 +77,19 @@ margin-bottom: 25px;
   border: 1px solid $audio-timeline-color;
   vertical-align: middle;
   padding: 10px;
+  position: relative;
+  padding-left: 20px;
+
+  &:before {
+    top: calc(50% - 0.25rem);
+    left: 5px;
+    position: absolute;
+    content: "";
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--circleColor, #376588);
+  }
 }
 
 .variants_list {
