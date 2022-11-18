@@ -7,13 +7,35 @@
 .rs {
   display: inline-block;
   height: 24px;
-  width: 100px;
+  width: 60px;
   background-image: url("../svg/rs_school_js.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  margin: 0px;
+  margin-right: 9px;
   padding: 0px;
   color: #FFFFFF;
+}
+
+.language__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.language-selection {
+  padding: 0px;
+  margin-right: 9px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.1s;
+  opacity: 0.8;
+}
+.language-selection:hover {
+  opacity: 1;
+}
+.language-selection_active {
+  background-color: #5b87a9;
+  font-weight: 800;
 }
 
 .header {

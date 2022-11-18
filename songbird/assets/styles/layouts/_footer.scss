@@ -9,11 +9,37 @@ justify-content: center;
     
     display: inline-block;
     height: 24px;
-    width: 100px;
+    width: 60px;
     background-image: url("../svg/rs_school_js.svg");
     background-size: contain;
     background-repeat: no-repeat;
-    margin: 0px;
+    margin-right: 9px;
     padding: 0px;
     color: #FFFFFF;
 }
+
+.language__wrapper {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.language-selection{
+    padding: 0px;
+    margin-right: 9px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .1s;
+    opacity: .8;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &_active {
+        background-color: $main-color;
+        font-weight: 800;
+      }
+  }
+
+ 

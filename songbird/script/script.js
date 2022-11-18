@@ -2,6 +2,7 @@ import birdsDataRu from './birds-data.js';
 import birdsDataEn from './birds-data-en.js';
 import translation from './language.js';
 
+// fill with text start
 let birdsData;
 
 let language = localStorage.getItem('lan');
@@ -9,11 +10,48 @@ if (!localStorage.getItem('lan')) {
   language = 'ru';
 }
 
+const languageSelect = document.querySelectorAll('.language-selection')
+
+
+languageSelect.forEach((element, index) => {
+  element.innerHTML.toLocaleLowerCase() == language ? element.classList.add('language-selection_active') : element.classList.remove('language-selection_active');
+  element.addEventListener('click', () => {
+   
+    if (index == 0) {
+      language = 'ru'
+      language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
+      localStorage.setItem('lan', language)
+      setText()
+      showVariants()
+      languageSelect[0].classList.add('language-selection_active')
+      languageSelect[1].classList.remove('language-selection_active')
+    } else {
+      language = 'en'
+      language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
+      localStorage.setItem('lan', language)
+      showVariants()
+      setText()
+      languageSelect[0].classList.remove('language-selection_active')
+      languageSelect[1].classList.add('language-selection_active')
+    }
+  })
+})
+
+const setText = () => {
+  document.querySelector('.start__button').textContent = translation[1][0].startbutton[language];
+  document.querySelector('.quiz_button').textContent = translation[1][0].nextLevel[language];
+  document.querySelector('.variant__base__words').textContent = translation[1][0].variantPreview[language];
+  document.querySelector('.score__text').textContent = translation[1][0].score[language];
+}
+setText()
+
 language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
-// fill with text start
+
 
 const levels = document.querySelectorAll('.level');
 let level = 0;
+
+// console.log(birdsData[level].sort(() => Math.random() - 0.5))
 
 levels.forEach((el, index) => {
   el.textContent = translation[0][index][language];
@@ -39,6 +77,7 @@ const showVariants = () => {
 }
 
 showVariants();
+// variants[0].dataset = '1'
 
 // mix variants end
 
@@ -63,7 +102,7 @@ const getVariant = (index) => {
 
 variants.forEach((el, index) => {
   el.addEventListener('click', () => {
-    // console.log(index);
+    console.log(index);
     getVariant(index);
     isRight(index);
   });
