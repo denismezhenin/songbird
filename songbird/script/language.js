@@ -47,11 +47,21 @@ const language = [
         ru: 'Послушайте плеер. Выберите птицу из списка',
         en: 'Select bird from list after lisetening to audioplayer',
       },
-      winText: {
-        ruStart: 'Вы прошли викторину и набрали',
-        enStart: "You've passed the quizz and got",
-        ruEnd: 'из 30 возможных баллов',
-        enEnd: 'form 30 points',
+      title: {
+        ru: 'Победа',
+        en: 'Win',
+      },
+      winTextStart: {
+        ru: 'Вы прошли викторину и набрали',
+        en: "You've passed the quiz and got",
+      },
+      winTextEnd: {
+        ru: 'из 30 возможных баллов',
+        en: 'form 30 points',
+      },
+      winButton: {
+        ru: 'Попробовать еще раз',
+        en: 'Play again',
       },
     },
   ],

@@ -2,6 +2,33 @@ import birdsDataRu from './birds-data.js';
 import birdsDataEn from './birds-data-en.js';
 import translation from './language.js';
 
+// start screen start
+
+const quiz = document.querySelector('.quiz');
+const startButton = document.querySelector('.start__button');
+const startWrapper = document.querySelector('.start');
+const header = document.querySelector('.header');
+
+const startGame = () => {
+  quiz.style.display = 'flex';
+  header.style.display = 'flex';
+  winMessageWrapper.style.display = 'none';
+  startWrapper.style.display = 'none';
+  level = 0;
+  SortArray(variants);
+  showVariants();
+  getRandomNumber();
+  returnToBase();
+  highlightLevel();
+  scoreBuffer.clear();
+  score.textContent = 0;
+}
+
+startButton.addEventListener('click', startGame);
+
+
+// start screen end
+
 // fill with text start
 let birdsData;
 
@@ -12,13 +39,12 @@ if (!localStorage.getItem('lan')) {
 
 const languageSelect = document.querySelectorAll('.language-selection')
 
-
 languageSelect.forEach((element, index) => {
   element.innerHTML.toLocaleLowerCase() == language ? element.classList.add('language-selection_active') : element.classList.remove('language-selection_active');
   element.addEventListener('click', () => {
     if (index == 0) {
       language = 'ru';
-      birdsData = birdsDataRu; 
+      birdsData = birdsDataRu;
       localStorage.setItem('lan', language);
       setText();
       showVariants();
@@ -64,7 +90,7 @@ const SortArray = (arr) => {
   arr = arr.sort(() => Math.random() - 0.5);
   return arr;
 }
-SortArray(variants);
+
 
 const showVariants = () => {
   //  variants = SortArray(variants);
@@ -74,7 +100,7 @@ const showVariants = () => {
   });
 }
 
-showVariants();
+
 // variants[0].dataset = '1'
 
 // mix variants end
@@ -133,7 +159,6 @@ const getRandomNumber = () => {
   randomNum = Math.round(Math.random() * 5);
   // console.log(randomNum)
 };
-getRandomNumber();
 
 const showRightAnswer = () => {
   birdImage.src = birdsData[level][randomNum].image;
@@ -149,7 +174,7 @@ const highlightLevel = () => {
     }
   });
 };
-highlightLevel();
+// highlightLevel();
 
 const returnToBase = () => {
   variantsWrapper.style.display = 'none';
@@ -158,15 +183,22 @@ const returnToBase = () => {
 };
 
 const nextLevel = () => {
-  level += 1;
-  // SortArray(variants);
-  showVariants();
-  NextLevelButton.removeEventListener('click', nextLevel);
-  NextLevelButton.classList.remove('quiz_button_active');
-  getRandomNumber();
-  returnToBase();
-  highlightLevel();
-  scoreBuffer.clear();
+  if (level == 5) {
+    showWinMessage()
+    NextLevelButton.classList.remove('quiz_button_active');
+  } else {
+    level += 1;
+    // SortArray(variants);
+    showVariants();
+    NextLevelButton.removeEventListener('click', nextLevel);
+    NextLevelButton.classList.remove('quiz_button_active');
+    getRandomNumber();
+    returnToBase();
+    highlightLevel();
+    scoreBuffer.clear();
+  }
+
+
 };
 
 const activatedNextLevelButton = () => {
@@ -224,6 +256,7 @@ const getAudioTime = (num) => {
   return `${minutes}:${String(seconds).padStart(2, 0)}`;
 };
 
+getRandomNumber()
 const audio = new Audio(`${birdsData[level][randomNum].audio}`);
 
 audio.addEventListener(
@@ -287,3 +320,22 @@ audioVolumeButton.addEventListener('click', muteAudio);
 audio.onended = () => tooglePlayButton();
 
 // audio ends
+
+//  win message starts
+
+const winMessageWrapper = document.querySelector('.win-message');
+const winTitle = document.querySelector('.win-message__title');
+const winText = document.querySelector('.win-message__text');
+const winButton = document.querySelector('.win-message__button');
+
+const showWinMessage = () => {
+  quiz.style.display = 'none';
+  winMessageWrapper.style.display = 'flex';
+  winTitle.textContent = translation[1][0].title[language];
+  winText.textContent = `${translation[1][0].winTextStart[language]} ${score.textContent} ${translation[1][0].winTextEnd[language]}`;
+  winButton.textContent = translation[1][0].winButton[language];
+};
+
+winButton.addEventListener('click', startGame);
+
+//  win message ends

@@ -3,11 +3,18 @@
 // }
 .main {
   flex: 1 0 auto;
+  position: relative;
+}
+
+.start {
+  position: absolute;
+  top: 70%;
+  right: 20%;
 }
 
 .quiz {
   width: 100%;
-  display: flex;
+  display: none;
   flex-wrap: wrap;
 }
 
@@ -121,5 +128,16 @@ flex-wrap: wrap;
 .variant__name__wrapper {
   display: flex;
   flex-direction: column;
+}
+
+// win message
+
+.win-message {
+  display: none;
+height: 100%;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
 }
 
