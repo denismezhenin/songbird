@@ -196,8 +196,8 @@ const highlightLevel = () => {
   levels.forEach((el, index) => {
     if (level == index) {
       levels[index].classList.add('level_active');
-      // eslint-disable-next-line no-unused-expressions
-      level != 0 ? levels[index - 1].classList.remove('level_active') : null;
+    } else {
+      levels[index].classList.remove('level_active');
     }
   });
 };
@@ -368,7 +368,6 @@ const showWinMessage = () => {
   winMessageWrapper.style.display = 'flex';
   winTitle.textContent = translation[1][0].title[language];
   winButton.textContent = translation[1][0].winButton[language];
-  console.log(score)
   if (score.textContent == 30) {
     winText.textContent = `${translation[1][0].winMaxScore[language]}`;
   } else {
