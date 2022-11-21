@@ -4,6 +4,8 @@ import translation from './language.js';
 
 // start screen start
 
+let tempAudio
+
 const quiz = document.querySelector('.quiz');
 const startButton = document.querySelector('.start__button');
 const startWrapper = document.querySelector('.start');
@@ -28,6 +30,12 @@ const startGame = () => {
   scoreBuffer.clear();
   score.textContent = 0;
   changeCircleColorToBase();
+  tempAudio = new createNewAudio(quizCard)
+  tempAudio.newAudio()
+  tempAudio.clearAudio()
+  // tempAudio.playAudio()
+  // quizCard.querySelector('.audio__play-button').addEventListener('click', tempAudio.playAudio);
+  // ac()
   if (!isGameStart) {
     addEventlistenersToVariats();
   }
@@ -40,6 +48,7 @@ const addEventlistenersToVariats = () => {
       // console.log(index);
       getVariant(index);
       isRight(index, birdsData[level][index].id);
+      
     });
   });
 }
@@ -217,7 +226,7 @@ const nextLevel = () => {
     level += 1;
     // variants = Array.from(document.querySelectorAll('.variant'));
     // variants = SortArray(variants);
-    
+    tempAudio.clearAudio()
     showVariants();
     showVariants();
     NextLevelButton.removeEventListener('click', nextLevel);
@@ -227,6 +236,10 @@ const nextLevel = () => {
     highlightLevel();
     scoreBuffer.clear();
     changeCircleColorToBase()
+    // createNewAudio(quizCard)
+    
+    // tempAudio = new createNewAudio(quizCard)
+    // tempAudio.newAudio()
   }
 };
 
@@ -291,21 +304,38 @@ const getAudioTime = (num) => {
   seconds -= minutes * 60;
   return `${minutes}:${String(seconds).padStart(2, 0)}`;
 };
-getRandomNumber()
-const createNewAudio = async (parent) => {
-  const temp = await `${birdsData[level][randomNum].audio}`;
+let interval
+class createNewAudio {
+
+  constructor(parent) {
+    this.parent = parent;
+    // this.audio = audio
+  }
+
+
+
+  async newAudio() {
+    const temp = await `${birdsData[level][randomNum].audio}`;
   // const audio = await new Audio(`${birdsData[level][randomNum].audio}`);
-  const audio = new Audio(temp)
+  const audio = new Audio(temp);
   // document.querySelector('.audio__total-time').textContent = getAudioTime(audio.duration);
-  setAudioTime(audio)
-  rangeHadler(parent, audio)
-  volumeHandler(parent, audio)
+ 
+  setAudioTime(audio);
+  rangeHadler(this.parent, audio);
+  volumeHandler(this.parent, audio);
   // audioHandlers(parent)
   // setRangeUpdate(parent)
-  setInterval(() => {
-    parent.querySelector('.audio__progress-bar').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
-    parent.querySelector('.audio__current-time').textContent = getAudioTime(audio.currentTime);
-  }, 250);
+
+
+  // let interval
+  // // if(~~interval) {
+  //   clearInterval(interval)
+  // } else {
+  interval = setInterval(intervalHandler, 250, this.parent, audio);
+  // }
+
+
+
   const playAudio = () => {
     if (audio.paused) {
       audio.play();
@@ -314,28 +344,74 @@ const createNewAudio = async (parent) => {
     };
   };
   const tooglePlayButton = () => {
-    parent.querySelector('.audio__play-button').classList.toggle('pause');
+    this.parent.querySelector('.audio__play-button').classList.toggle('pause');
   };
   
   const toogleVolumeButton = () => {
-    parent.querySelector('.audio__volume-button').classList.toggle('mute');
+    this.parent.querySelector('.audio__volume-button').classList.toggle('mute');
   };
   
-  const muteAudio = () => {
-    if (audio.muted) {
-      audio.muted = false;
-    } else {
-      audio.muted = true;
-    }
-  };
+  // const muteAudio = () => {
+  //   if (audio.muted) {
+  //     audio.muted = false;
+  //   } else {
+  //     audio.muted = true;
+  //   }
+  // };
   // return audio
-  parent.querySelector('.audio__play-button').addEventListener('click', playAudio);
-  parent.querySelector('.audio__play-button').addEventListener('click', tooglePlayButton);
-  parent.querySelector('.audio__volume-button').addEventListener('click', toogleVolumeButton);
-  parent.querySelector('.audio__volume-button').addEventListener('click', muteAudio);
+
+  // function ac () {
+  //   console.log(111)
+  //   parent.removeEventListener('click', playAudio)
+  // }
+
+  // parent.addEventListener('click', playAudio)
+
+
+
+  // this.parent.querySelector('.audio__play-button').removeEventListener('click', playAudio);
+  // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
+  // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
+  // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
+  this.parent.querySelector('.audio__play-button').addEventListener('click', playAudio);
+  // this.parent.querySelector('.audio__play-button').addEventListener('click', tooglePlayButton);
+  // this.parent.querySelector('.audio__volume-button').addEventListener('click', toogleVolumeButton);
+  // this.parent.querySelector('.audio__volume-button').addEventListener('click', muteAudio);
   audio.onended = () => tooglePlayButton();
+  // function clearAudio() {
+  //   console.log(1)
+  //   clearInterval(interval);
+  //   this.parent.querySelector('.audio__play-button').removeEventListener('click', playAudio);
+  //   // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
+  //   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
+  //   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
+  //   // parent.removeEventListener('click', playAudio)
+  // }
+  }
+
+  // async playAudio() {
+  //   // console.log(audio)
+  //   console.log(this.audio)
+  //   if (this.audio.paused) {
+  //     this.audio.play();
+  //   } else {
+  //     this.audio.pause();
+  //   };
+  // };
+
+  clearAudio() {
+    console.log(1)
+    clearInterval(interval)
+    this.parent.querySelector('.audio__play-button').removeEventListener('click',this. playAudio);
+    // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
+    // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
+    // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
+    // parent.removeEventListener('click', playAudio)
+  }
+
+  
 }
-createNewAudio(quizCard)
+// createNewAudio(quizCard)
 
 const setAudioTime = (audio) => {
   audio.addEventListener(
@@ -368,6 +444,11 @@ const volumeHandler = (parent, audio) => {
     document.querySelector('.audio__value').style.width = `${skipVolume * 100}%`;
     // console.log(audio.volume);
   });
+}
+
+const intervalHandler = (parent, audio) => {
+  parent.querySelector('.audio__progress-bar').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+  parent.querySelector('.audio__current-time').textContent = getAudioTime(audio.currentTime);
 }
 
 
@@ -435,3 +516,4 @@ const showWinMessage = () => {
 winButton.addEventListener('click', startGame);
 
 //  win message ends
+console.log('не получается плээр доработать, постараюсь доделать, прросьба проверить позже')
