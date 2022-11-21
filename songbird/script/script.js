@@ -367,8 +367,13 @@ const showWinMessage = () => {
   quiz.style.display = 'none';
   winMessageWrapper.style.display = 'flex';
   winTitle.textContent = translation[1][0].title[language];
-  winText.textContent = `${translation[1][0].winTextStart[language]} ${score.textContent} ${translation[1][0].winTextEnd[language]}`;
   winButton.textContent = translation[1][0].winButton[language];
+  console.log(score)
+  if (score.textContent == 30) {
+    winText.textContent = `${translation[1][0].winMaxScore[language]}`;
+  } else {
+    winText.textContent = `${translation[1][0].winTextStart[language]} ${score.textContent} ${translation[1][0].winTextEnd[language]}`;
+  }
 };
 
 winButton.addEventListener('click', startGame);

@@ -63,6 +63,10 @@ const language = [
         ru: 'Попробовать еще раз',
         en: 'Play again',
       },
+      winMaxScore: {
+        ru: 'Поздравляем. Вы набрали максимум баллов',
+        en: "Congratilations. You've got maximum poins",
+      },
     },
   ],
 ];
