@@ -274,85 +274,142 @@ const playSound = (type) => {
 
 // audio starts
 
-const audioTimeline = document.querySelector('.audio__timeline');
-const audioProgressBar = document.querySelector('.audio__progress-bar');
-const audioPlayButton = document.querySelector('.audio__play-button');
-const audioCurrent = document.querySelector('.audio__current-time');
-const audioTotalTime = document.querySelector('.audio__total-time');
-const audioVolumeButton = document.querySelector('.audio__volume-button');
-const audioVolumeRange = document.querySelector('.audio__volume-range');
-const audioVolumeValue = document.querySelector('.audio__value');
+// const audioTimeline = document.querySelector('.audio__timeline');
+// const audioProgressBar = document.querySelector('.audio__progress-bar');
+// const audioPlayButton = document.querySelector('.audio__play-button');
+// const audioCurrent = document.querySelector('.audio__current-time');
+// const audioTotalTime = document.querySelector('.audio__total-time');
+// const audioVolumeButton = document.querySelector('.audio__volume-button');
+// const audioVolumeRange = document.querySelector('.audio__volume-range');
+// const audioVolumeValue = document.querySelector('.audio__value');
+const quizCard = document.querySelector('.quiz__card');
 
 const getAudioTime = (num) => {
-  let seconds = parseInt(num, 10);
+   let seconds = parseInt(num, 10);
   const minutes = parseInt(seconds / 60, 10);
   // console.log(num)
   seconds -= minutes * 60;
   return `${minutes}:${String(seconds).padStart(2, 0)}`;
 };
-
 getRandomNumber()
-const audio = new Audio(`${birdsData[level][randomNum].audio}`);
-
-audio.addEventListener(
-  'loadeddata',
-  () => {
-    audioTotalTime.textContent = getAudioTime(audio.duration);
-    audio.volume = 0.75;
-  },
-);
-
-audioTimeline.addEventListener('click', (e) => {
-  const rangeWidth = window.getComputedStyle(audioTimeline).width;
-  const skipTime = (e.offsetX / parseInt(rangeWidth, 10)) * audio.duration;
-  audio.currentTime = skipTime;
-});
-
-audioVolumeRange.addEventListener('click', (e) => {
-  const volumeContainerWidth = window.getComputedStyle(audioVolumeRange).width;
-  const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
-  // console.log(e.offsetX)
-  console.log(volumeContainerWidth);
-  // console.log(parseInt(volumeContainerWidth, 10))
-  console.log(skipVolume);
-  audio.volume = skipVolume;
-  audioVolumeValue.style.width = `${skipVolume * 100}%`;
-  // console.log(audio.volume);
-});
-
-setInterval(() => {
-  audioProgressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
-  audioCurrent.textContent = getAudioTime(audio.currentTime);
-}, 250);
-
-const playAudio = () => {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
+const createNewAudio = async (parent) => {
+  const temp = await `${birdsData[level][randomNum].audio}`;
+  // const audio = await new Audio(`${birdsData[level][randomNum].audio}`);
+  const audio = new Audio(temp)
+  // document.querySelector('.audio__total-time').textContent = getAudioTime(audio.duration);
+  setAudioTime(audio)
+  rangeHadler(parent, audio)
+  volumeHandler(parent, audio)
+  // audioHandlers(parent)
+  // setRangeUpdate(parent)
+  setInterval(() => {
+    parent.querySelector('.audio__progress-bar').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+    parent.querySelector('.audio__current-time').textContent = getAudioTime(audio.currentTime);
+  }, 250);
+  const playAudio = () => {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    };
   };
-};
-const tooglePlayButton = () => {
-  audioPlayButton.classList.toggle('pause');
+  const tooglePlayButton = () => {
+    parent.querySelector('.audio__play-button').classList.toggle('pause');
+  };
+  
+  const toogleVolumeButton = () => {
+    parent.querySelector('.audio__volume-button').classList.toggle('mute');
+  };
+  
+  const muteAudio = () => {
+    if (audio.muted) {
+      audio.muted = false;
+    } else {
+      audio.muted = true;
+    }
+  };
+  // return audio
+  parent.querySelector('.audio__play-button').addEventListener('click', playAudio);
+  parent.querySelector('.audio__play-button').addEventListener('click', tooglePlayButton);
+  parent.querySelector('.audio__volume-button').addEventListener('click', toogleVolumeButton);
+  parent.querySelector('.audio__volume-button').addEventListener('click', muteAudio);
+  audio.onended = () => tooglePlayButton();
+}
+createNewAudio(quizCard)
+
+const setAudioTime = (audio) => {
+  audio.addEventListener(
+    'loadeddata',
+    () => {
+      document.querySelector('.audio__total-time').textContent = getAudioTime(audio.duration);
+      audio.volume = 0.75;
+    },
+  );
+}
+
+const rangeHadler = (parent, audio) => {
+  parent.querySelector('.audio__timeline').addEventListener('click', (e) => {
+    const rangeWidth = window.getComputedStyle(document.querySelector('.audio__timeline')).width;
+    const skipTime = (e.offsetX / parseInt(rangeWidth, 10)) * audio.duration;
+    audio.currentTime = skipTime;
+  });
 };
 
-const toogleVolumeButton = () => {
-  audioVolumeButton.classList.toggle('mute');
-};
 
-const muteAudio = () => {
-  if (audio.muted) {
-    audio.muted = false;
-  } else {
-    audio.muted = true;
-  }
-};
+const volumeHandler = (parent, audio) => {
+  parent.querySelector('.audio__volume-range').addEventListener('click', (e) => {
+    const volumeContainerWidth = window.getComputedStyle(document.querySelector('.audio__volume-range')).width;
+    const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
+    // console.log(e.offsetX)
+    console.log(volumeContainerWidth);
+    // console.log(parseInt(volumeContainerWidth, 10))
+    console.log(skipVolume);
+    audio.volume = skipVolume;
+    document.querySelector('.audio__value').style.width = `${skipVolume * 100}%`;
+    // console.log(audio.volume);
+  });
+}
 
-audioPlayButton.addEventListener('click', playAudio);
-audioPlayButton.addEventListener('click', tooglePlayButton);
-audioVolumeButton.addEventListener('click', toogleVolumeButton);
-audioVolumeButton.addEventListener('click', muteAudio);
-audio.onended = () => tooglePlayButton();
+
+// const setRangeUpdate = (parent) => {
+// setInterval((parent) => {
+//   parent.querySelector('.audio__progress-bar').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+//   parent.querySelector('.audio__current-time').textContent = getAudioTime(audio.currentTime);
+// }, 250);
+// }
+
+
+// const playAudio = () => {
+//   if (audio.paused) {
+//     audio.play();
+//   } else {
+//     audio.pause();
+//   };
+// };
+// const tooglePlayButton = () => {
+//   parent.querySelector('.audio__play-button').classList.toggle('pause');
+// };
+
+// const toogleVolumeButton = () => {
+//   parent.querySelector('.audio__volume-button').classList.toggle('mute');
+// };
+
+// const muteAudio = () => {
+//   if (audio.muted) {
+//     audio.muted = false;
+//   } else {
+//     audio.muted = true;
+//   }
+// };
+
+//  const audioHandlers = (parent) => {
+//   parent.querySelector('.audio__play-button').addEventListener('click', playAudio);
+//   parent.querySelector('.audio__play-button').addEventListener('click', tooglePlayButton);
+//   parent.querySelector('.audio__volume-button').addEventListener('click', toogleVolumeButton);
+//   parent.querySelector('.audio__volume-button').addEventListener('click', muteAudio);
+//  }
+
+// audio.onended = () => tooglePlayButton();
 
 // audio ends
 
