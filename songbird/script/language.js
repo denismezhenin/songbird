@@ -67,6 +67,10 @@ const language = [
         ru: 'Поздравляем. Вы набрали максимум баллов',
         en: "Congratilations. You've got maximum poins",
       },
+      gallery: {
+        ru: 'Галерея',
+        en: 'Gallery',
+      },
     },
   ],
 ];

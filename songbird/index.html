@@ -10,7 +10,8 @@
 <body>
   <header class="header wrapper">
     <div class="header__wrapper">
-      <h2 class="main-title">Songbird</h2>
+      <h2 class="main-title main-page">Songbird</h2>
+      <h3 class="gallery-page"></h3>
       <div class="score">
         <span class="score__text"></span>
         <span class="score__number">0</span>
@@ -34,7 +35,7 @@
     </ul>	
     <div class="quiz__card block__second-colored">
       <div class="quiz__image">
-        <img src="./assets/images/bird.jpg" alt="" class="quiz__card__img">
+        <img src="./assets/images/bird.jpg" alt="" class="quiz__card__img img">
       </div>
     <div class="audio">
       <span class="quiz__card__name">*****</span>
@@ -71,7 +72,7 @@
       <span class="variant__base__words"></span>
       <div class="variant__wrapper">
         <div class="variant__image-wrapper">
-          <img src="" alt="" class="quiz__card__img variant__image">
+          <img src="" alt="" class="quiz__card__img variant__image img">
         </div>
         <div class="variant__name__wrapper">
           <span class="quiz__card__name variant__name"></span>
@@ -106,9 +107,42 @@
       <p class="win-message__text"></p>
       <button class="button win-message__button"></button>
     </div>
-    <div class="records">
-      <h2 class="records__title"></h2>
-      <ol class="records__list"></ol>
+    <div class="gallery">
+      <h2 class="gallery__title"></h2>
+      <ul class="gallery__list"></ul>
+      <div class="gallery__card__wrapper">
+        <div class="gallery__card">
+          <span class="variant__base__words"></span>
+          <div class="variant__wrapper">
+            <div class="variant__image-wrapper">
+              <img src="" alt="" class="quiz__card__img variant__image img">
+            </div>
+            <div class="variant__name__wrapper">
+              <span class="quiz__card__name variant__name"></span>
+              <span class="quiz__card__name variant__name-latin"></span>
+          <div class="audio">
+            <!-- <span class="quiz__card__name">*****</span> -->
+            <div class="audio__timeline">
+              <div class="audio__progress-bar"></div>
+            </div>
+            <div class="audio__controls">
+              <button class="audio__play-button audio-icon"></button>
+              <div class="audio__time">
+                <span class="audio__current-time">00:00</span>
+                <span> | </span>
+                <span class="audio__total-time"></span>
+              </div>
+              <div class="audio__volume_container">
+                <button class="audio__volume-button audio-icon"></button>
+                <div class="audio__volume-range">
+                  <div class="audio__value"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="variant__description"></p>
+      </div>
     </div>
     </div>
   </main>

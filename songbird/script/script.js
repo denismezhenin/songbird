@@ -18,6 +18,7 @@ const startGame = async () => {
   header.style.display = 'flex';
   winMessageWrapper.style.display = 'none';
   startWrapper.style.display = 'none';
+  galleryCardWrapper.classList.remove('gallery__card__wrapper_active');
   level = 0;
 
 
@@ -32,7 +33,7 @@ const startGame = async () => {
   changeCircleColorToBase();
   await newMusic('card', randomNum)
   await newMusic('variant', randomNum)
-
+  await newMusic('gallery', randomNum)
   // setInt()
   // tempAudio = new createNewAudio(quizCard)
   // tempAudio.newAudio()
@@ -50,6 +51,10 @@ const startGame = async () => {
     volumeHandler(variantsWrapper, 'variant')
     setInt(quizCard, 'card')
     setInt(variantsWrapper, 'variant')
+    setInt(gallery, 'gallery')
+    audioHandlers(gallery, 'gallery');
+    rangeHadler(gallery, 'gallert');
+    volumeHandler(gallery, 'gallery');
   }
   isGameStart = true;
 }
@@ -58,9 +63,8 @@ const addEventlistenersToVariats = () => {
   variants.forEach((el, index) => {
     el.addEventListener('click', () => {
       // console.log(index);
-      getVariant(index);
+      getVariant(variantsWrapper, index);
       isRight(index, birdsData[level][index].id);
-      
     });
   });
 }
@@ -108,6 +112,7 @@ const setText = () => {
   document.querySelector('.quiz_button').textContent = translation[1][0].nextLevel[language];
   document.querySelector('.variant__base__words').textContent = translation[1][0].variantPreview[language];
   document.querySelector('.score__text').textContent = translation[1][0].score[language];
+  document.querySelector('.gallery-page').textContent = translation[1][0].gallery[language];
 };
 setText();
 
@@ -151,25 +156,25 @@ const showVariants = () => {
 // mix variants end
 
 // variant description start
-const variantImage = document.querySelector('.variant__image');
-const variantName = document.querySelector('.variant__name');
-const variantLatinName = document.querySelector('.variant__name-latin');
-const variantDescription = document.querySelector('.variant__description');
+// const variantImage = document.querySelector('.variant__image');
+// const variantName = document.querySelector('.variant__name');
+// const variantLatinName = document.querySelector('.variant__name-latin');
+// const variantDescription = document.querySelector('.variant__description');
 const variantsWrapper = document.querySelector('.variant__wrapper');
 
 variantsWrapper.style.display = 'none';
 
-const getVariant = async (index) => {
-  if (!variantAudio.paused) {
-    variantAudio.pause()
-    variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
-  }
+const getVariant = async (parent, index) => {
+  // if (!variantAudio.paused) {
+  //   variantAudio.pause()
+  //   variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
+  // }
   await newMusic('variant', index)
-  variantsWrapper.style.display = '';
-  variantImage.src = birdsData[level][index].image;
-  variantName.textContent = birdsData[level][index].name;
-  variantLatinName.textContent = birdsData[level][index].species;
-  variantDescription.textContent = birdsData[level][index].description;
+  parent.style.display = '';
+  parent.querySelector('.variant__image').src = birdsData[level][index].image;
+  parent.querySelector('.variant__name').textContent = birdsData[level][index].name;
+  parent.querySelector('.variant__name-latin').textContent = birdsData[level][index].species;
+  parent.querySelector('.variant__description').textContent = birdsData[level][index].description;
 };
 
 // variants.forEach((el, index) => {
@@ -440,6 +445,7 @@ let interval
 
 let cardAduio;
 let variantAudio;
+let galleryAudio;
 
 const newMusic = async (type , number) => {
   // audio = new Audio(`${birdsData[level][randomNum].audio}`)
@@ -447,21 +453,26 @@ const newMusic = async (type , number) => {
   if (type == 'card') {
     cardAduio = new Audio(tempAudio);
     // quizCard.querySelector('.audio__total-time').textContent = getAudioTime(cardAduio.duration);
-    setAudioTime(quizCard, cardAduio)
+    setAudioTime(quizCard, cardAduio);
     cardAduio.onended = () => {
       quizCard.querySelector('.audio__play-button').classList.remove('pause');
       cardAduio.currentTime = 0;
     }
-  
-  } else {
+  } else if (type == 'variant') {
     variantAudio = new Audio(tempAudio);
-    setAudioTime(variantsWrapper, variantAudio)
+    setAudioTime(variantsWrapper, variantAudio);
     variantAudio.onended = () => {
       variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
       variantAudio.currentTime = 0;
     }
+  } else {
+    galleryAudio = new Audio(tempAudio);
+    setAudioTime(gallery, galleryAudio);
+    galleryAudio.onended = () => {
+      gallery.querySelector('.audio__play-button').classList.remove('pause');
+      galleryAudio.currentTime = 0;
+    }
   }
-     
   // console.log(cardAduio)
   // setAudioTime(audio)
   // setInt()
@@ -482,7 +493,15 @@ console.log(type)
   parent.querySelector('.audio__timeline').addEventListener('click', (e) => {
     let audio
     console.log(type)
-    type == 'card' ? audio = cardAduio : audio = variantAudio;
+    if (type == 'card') {
+      audio = cardAduio;
+    } else if (type == 'variant') {
+      audio = variantAudio;
+    } else {
+      audio = galleryAudio
+    }
+
+    // type == 'card' ? audio = cardAduio : audio = variantAudio;
     console.log(audio)
     const rangeWidth = window.getComputedStyle(parent.querySelector('.audio__timeline')).width;
     const skipTime = (e.offsetX / parseInt(rangeWidth, 10)) * audio.duration;
@@ -495,7 +514,14 @@ const volumeHandler = (parent, type) => {
   parent.querySelector('.audio__volume-range').addEventListener('click', (e) => {
     let audio
     console.log(type)
-    type == 'card' ? audio = cardAduio : audio = variantAudio;
+    if (type == 'card') {
+      audio = cardAduio;
+    } else if (type == 'variant') {
+      audio = variantAudio;
+    } else {
+      audio = galleryAudio
+    }
+    // type == 'card' ? audio = cardAduio : audio = variantAudio;
     console.log(audio)
     const volumeContainerWidth = window.getComputedStyle(parent.querySelector('.audio__volume-range')).width;
     const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
@@ -510,8 +536,16 @@ const volumeHandler = (parent, type) => {
 }
 
 const intervalHandler = (parent, type) => {
-  let audio
-  type == 'card' ? audio = cardAduio : audio = variantAudio;
+  let audio;
+  if (type == 'card') {
+    audio = cardAduio;
+  } else if (type == 'variant') {
+    audio = variantAudio;
+  } else {
+    audio = galleryAudio
+  }
+  // let audio
+  // type == 'card' ? audio = cardAduio : audio = variantAudio;
   parent.querySelector('.audio__progress-bar').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
   parent.querySelector('.audio__current-time').textContent = getAudioTime(audio.currentTime);
 }
@@ -545,7 +579,15 @@ const stopaduioPlayer = () => {
 
 const playAudio = (type) => {
   let audio;
-  type == 'card' ? audio = cardAduio : audio = variantAudio;
+  if (type == 'card') {
+    audio = cardAduio;
+  } else if (type == 'variant') {
+    audio = variantAudio;
+  } else {
+    audio = galleryAudio
+  }
+  // let audio;
+  // type == 'card' ? audio = cardAduio : audio = variantAudio;
   // console.log(audio)
   if (audio.paused) {
     audio.play();
@@ -563,7 +605,14 @@ const toogleVolumeButton = (parent) => {
 
 const muteAudio = (type) => {
   let audio;
-  type == 'card' ? audio = cardAduio : audio = variantAudio;
+  if (type == 'card') {
+    audio = cardAduio;
+  } else if (type == 'variant') {
+    audio = variantAudio;
+  } else {
+    audio = galleryAudio;
+  }
+  // type == 'card' ? audio = cardAduio : audio = variantAudio;
   // console.log(audio)
   if (audio.muted) {
     audio.muted = false;
@@ -616,3 +665,64 @@ winButton.addEventListener('click', startGame);
 
 //  win message ends
 console.log('не получается плээр доработать, постараюсь доделать, прросьба проверить позже')
+
+//gallery starts 
+const gallery = document.querySelector('.gallery')
+const galleryWrapper = document.querySelector('.gallery__list')
+const galleryCardWrapper = document.querySelector('.gallery__card__wrapper')
+
+const createGallery = () => {
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < birdsData.length; i++) {
+    // eslint-disable-next-line no-plusplus
+    for (let j = 0; j < birdsData[i].length; j++) {
+    let li = document.createElement('li');
+      li.classList.add('gallery__item')
+    let img = document.createElement('img')
+    img.classList.add('img')
+    img.src = `${birdsData[i][j].image}`;
+    li.dataset.level = i;
+    li.dataset.number = j;
+    li.append(img)
+    // console.log(li)
+    // console.log(galleryWrapper)
+    galleryWrapper.append(li)
+    }
+  }
+}
+
+galleryWrapper.addEventListener('click', async (e) => {
+  // let target = e.target.classList
+  if (e.target.closest('.gallery__item')) {
+    const target = e.target.closest('.gallery__item');
+    console.log(target.dataset.level)
+    level = target.dataset.level;
+    let number = target.dataset.number;
+    console.log(target.dataset.number)
+    galleryCardWrapper.classList.add('gallery__card__wrapper_active')
+    await newMusic('gallery', number)
+    getVariant(gallery, number);
+  }
+})
+
+document.addEventListener('click', (e) => {
+  const target = e.target.classList;
+  if(target.contains('gallery__card__wrapper_active')) {
+    galleryCardWrapper.classList.remove('gallery__card__wrapper_active')
+  }
+});
+
+document.querySelector('.gallery-page').addEventListener('click', () => {
+  createGallery();
+  quiz.style.display = 'none';
+  // header.style.display = 'none';
+  winMessageWrapper.style.display = 'none';
+})
+
+document.querySelector('.main-page').addEventListener('click', () => {
+  startGame()
+  let temp = document.querySelectorAll('.gallery__item')
+  temp.forEach(el => el.remove())
+})
+
+//galery ends

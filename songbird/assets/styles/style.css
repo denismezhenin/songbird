@@ -149,6 +149,7 @@
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
@@ -250,7 +251,7 @@ li {
   text-align: center;
 }
 
-.quiz__card__img {
+.img {
   width: 200px;
   height: 155px;
   -o-object-fit: cover;
@@ -323,4 +324,48 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.gallery {
+  margin-bottom: 20px;
+}
+
+.gallery__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.gallery__card__wrapper {
+  display: none;
+}
+.gallery__card__wrapper_active {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.gallery__card__wrapper_active .variant__description {
+  text-align: center;
+}
+
+.gallery__item {
+  margin: 5px;
+}
+@media (max-width: 639px) {
+  .gallery__item .img {
+    width: 120px;
+    height: 90px;
+  }
+}
+
+.gallery__card {
+  background-color: rgba(244, 244, 244, 0.62);
 }/*# sourceMappingURL=style.css.map */
