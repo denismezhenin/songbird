@@ -239,15 +239,13 @@ const nextLevel = async() => {
   if (level == 5) {
     showWinMessage()
     NextLevelButton.classList.remove('quiz_button_active');
+    stopaduioPlayer()
   } else {
     level += 1;
     // variants = Array.from(document.querySelectorAll('.variant'));
     // variants = SortArray(variants);
     // tempAudio.clearAudio()
-    if (!cardAduio.paused) {
-      cardAduio.pause()
-      quizCard.querySelector('.audio__play-button').classList.remove('pause');
-    }
+    stopaduioPlayer()
     showVariants();
     showVariants();
     NextLevelButton.removeEventListener('click', nextLevel);
@@ -521,6 +519,17 @@ const intervalHandler = (parent, type) => {
 const setInt = (parent, type) => {
   // clearInterval(interval)
   interval = setInterval(intervalHandler, 250, parent, `${type}`);
+};
+
+const stopaduioPlayer = () => {
+  if (!cardAduio.paused) {
+    cardAduio.pause();
+    quizCard.querySelector('.audio__play-button').classList.remove('pause');
+  }
+  if (!variantAudio.paused) {
+    variantAudio.pause();
+    variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
+  }
 }
 
 // document.querySelector('.audio__play-button').addEventListener('click', playAudio)
@@ -535,7 +544,7 @@ const setInt = (parent, type) => {
 
 
 const playAudio = (type) => {
-  let audio
+  let audio;
   type == 'card' ? audio = cardAduio : audio = variantAudio;
   // console.log(audio)
   if (audio.paused) {
@@ -553,7 +562,7 @@ const toogleVolumeButton = (parent) => {
 };
 
 const muteAudio = (type) => {
-  let audio
+  let audio;
   type == 'card' ? audio = cardAduio : audio = variantAudio;
   // console.log(audio)
   if (audio.muted) {
@@ -566,16 +575,16 @@ const muteAudio = (type) => {
  const audioHandlers = (parent, type) => {
   // console.log(`${audio}`);
   parent.querySelector('.audio__play-button').addEventListener('click', () => {
-    playAudio(`${type}`)
+    playAudio(`${type}`);
   });
   parent.querySelector('.audio__play-button').addEventListener('click', () => {
-    tooglePlayButton(parent)
+    tooglePlayButton(parent);
   });
   parent.querySelector('.audio__volume-button').addEventListener('click', () => {
-    toogleVolumeButton(parent)
+    toogleVolumeButton(parent);
   });
   parent.querySelector('.audio__volume-button').addEventListener('click', () => {
-    muteAudio(`${type}`)
+    muteAudio(`${type}`);
   });
   // audio.onended = () => tooglePlayButton(parent);
  }
