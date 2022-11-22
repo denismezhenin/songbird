@@ -165,10 +165,10 @@ const variantsWrapper = document.querySelector('.variant__wrapper');
 variantsWrapper.style.display = 'none';
 
 const getVariant = async (parent, index) => {
-  // if (!variantAudio.paused) {
-  //   variantAudio.pause()
-  //   variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
-  // }
+  if (!variantAudio.paused) {
+    variantAudio.pause()
+    variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
+  }
   await newMusic('variant', index)
   parent.style.display = '';
   parent.querySelector('.variant__image').src = birdsData[level][index].image;
@@ -489,10 +489,8 @@ const setAudioTime = (parent, audio) => {
 }
 
 const rangeHadler = (parent, type) => {
-console.log(type)
   parent.querySelector('.audio__timeline').addEventListener('click', (e) => {
     let audio
-    console.log(type)
     if (type == 'card') {
       audio = cardAduio;
     } else if (type == 'variant') {
@@ -500,9 +498,6 @@ console.log(type)
     } else {
       audio = galleryAudio
     }
-
-    // type == 'card' ? audio = cardAduio : audio = variantAudio;
-    console.log(audio)
     const rangeWidth = window.getComputedStyle(parent.querySelector('.audio__timeline')).width;
     const skipTime = (e.offsetX / parseInt(rangeWidth, 10)) * audio.duration;
     audio.currentTime = skipTime;
@@ -513,7 +508,6 @@ console.log(type)
 const volumeHandler = (parent, type) => {
   parent.querySelector('.audio__volume-range').addEventListener('click', (e) => {
     let audio
-    console.log(type)
     if (type == 'card') {
       audio = cardAduio;
     } else if (type == 'variant') {
@@ -522,7 +516,6 @@ const volumeHandler = (parent, type) => {
       audio = galleryAudio
     }
     // type == 'card' ? audio = cardAduio : audio = variantAudio;
-    console.log(audio)
     const volumeContainerWidth = window.getComputedStyle(parent.querySelector('.audio__volume-range')).width;
     const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
     // console.log(e.offsetX)
@@ -531,7 +524,6 @@ const volumeHandler = (parent, type) => {
     // console.log(skipVolume);
     audio.volume = skipVolume;
     parent.querySelector('.audio__value').style.width = `${skipVolume * 100}%`;
-    console.log(audio.volume);
   });
 }
 
@@ -563,6 +555,10 @@ const stopaduioPlayer = () => {
   if (!variantAudio.paused) {
     variantAudio.pause();
     variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
+  }
+  if (!galleryAudio.paused) {
+    galleryAudio.pause();
+    gallery.querySelector('.audio__play-button').classList.remove('pause');
   }
 }
 
@@ -664,7 +660,7 @@ const showWinMessage = () => {
 winButton.addEventListener('click', startGame);
 
 //  win message ends
-console.log('не получается плээр доработать, постараюсь доделать, прросьба проверить позже')
+
 
 //gallery starts 
 const gallery = document.querySelector('.gallery')
@@ -695,12 +691,10 @@ galleryWrapper.addEventListener('click', async (e) => {
   // let target = e.target.classList
   if (e.target.closest('.gallery__item')) {
     const target = e.target.closest('.gallery__item');
-    console.log(target.dataset.level)
     level = target.dataset.level;
     let number = target.dataset.number;
-    console.log(target.dataset.number)
     galleryCardWrapper.classList.add('gallery__card__wrapper_active')
-    await newMusic('gallery', number)
+    await newMusic('gallery', number);
     getVariant(gallery, number);
   }
 })
@@ -709,10 +703,12 @@ document.addEventListener('click', (e) => {
   const target = e.target.classList;
   if(target.contains('gallery__card__wrapper_active')) {
     galleryCardWrapper.classList.remove('gallery__card__wrapper_active')
+    stopaduioPlayer()
   }
 });
 
 document.querySelector('.gallery-page').addEventListener('click', () => {
+  stopaduioPlayer()
   createGallery();
   quiz.style.display = 'none';
   // header.style.display = 'none';
@@ -720,9 +716,12 @@ document.querySelector('.gallery-page').addEventListener('click', () => {
 })
 
 document.querySelector('.main-page').addEventListener('click', () => {
+  stopaduioPlayer()
   startGame()
   let temp = document.querySelectorAll('.gallery__item')
   temp.forEach(el => el.remove())
 })
 
 //galery ends
+
+console.log('270/270. Вроде бы все сделал, если будут замечания просьба написать discord: denismezhenin, исправлю')
