@@ -14,6 +14,8 @@ const header = document.querySelector('.header');
 let isGameStart = false;
 
 const startGame = async () => {
+  NextLevelButton.removeEventListener('click', nextLevel);
+  NextLevelButton.classList.remove('quiz_button_active');
   quiz.style.display = 'flex';
   header.style.display = 'flex';
   winMessageWrapper.style.display = 'none';
