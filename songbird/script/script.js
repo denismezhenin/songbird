@@ -4,7 +4,7 @@ import translation from './language.js';
 
 // start screen start
 
-let tempAudio
+// let tempAudio
 
 const quiz = document.querySelector('.quiz');
 const startButton = document.querySelector('.start__button');
@@ -13,7 +13,7 @@ const header = document.querySelector('.header');
 // let variants = [];
 let isGameStart = false;
 
-const startGame = () => {
+const startGame = async () => {
   quiz.style.display = 'flex';
   header.style.display = 'flex';
   winMessageWrapper.style.display = 'none';
@@ -30,14 +30,26 @@ const startGame = () => {
   scoreBuffer.clear();
   score.textContent = 0;
   changeCircleColorToBase();
-  tempAudio = new createNewAudio(quizCard)
-  tempAudio.newAudio()
-  tempAudio.clearAudio()
+  await newMusic('card', randomNum)
+  await newMusic('variant', randomNum)
+
+  // setInt()
+  // tempAudio = new createNewAudio(quizCard)
+  // tempAudio.newAudio()
+  // tempAudio.clearAudio()
   // tempAudio.playAudio()
   // quizCard.querySelector('.audio__play-button').addEventListener('click', tempAudio.playAudio);
   // ac()
   if (!isGameStart) {
     addEventlistenersToVariats();
+    audioHandlers(quizCard, 'card');
+    rangeHadler(quizCard, 'card');
+    volumeHandler(quizCard, 'card')
+    audioHandlers(variantsWrapper, 'variant');
+    rangeHadler(variantsWrapper, 'variant');
+    volumeHandler(variantsWrapper, 'variant')
+    setInt(quizCard, 'card')
+    setInt(variantsWrapper, 'variant')
   }
   isGameStart = true;
 }
@@ -147,7 +159,12 @@ const variantsWrapper = document.querySelector('.variant__wrapper');
 
 variantsWrapper.style.display = 'none';
 
-const getVariant = (index) => {
+const getVariant = async (index) => {
+  if (!variantAudio.paused) {
+    variantAudio.pause()
+    variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
+  }
+  await newMusic('variant', index)
   variantsWrapper.style.display = '';
   variantImage.src = birdsData[level][index].image;
   variantName.textContent = birdsData[level][index].name;
@@ -218,7 +235,7 @@ const returnToBase = () => {
   birdName.textContent = '*****';
 };
 
-const nextLevel = () => {
+const nextLevel = async() => {
   if (level == 5) {
     showWinMessage()
     NextLevelButton.classList.remove('quiz_button_active');
@@ -226,7 +243,11 @@ const nextLevel = () => {
     level += 1;
     // variants = Array.from(document.querySelectorAll('.variant'));
     // variants = SortArray(variants);
-    tempAudio.clearAudio()
+    // tempAudio.clearAudio()
+    if (!cardAduio.paused) {
+      cardAduio.pause()
+      quizCard.querySelector('.audio__play-button').classList.remove('pause');
+    }
     showVariants();
     showVariants();
     NextLevelButton.removeEventListener('click', nextLevel);
@@ -236,6 +257,8 @@ const nextLevel = () => {
     highlightLevel();
     scoreBuffer.clear();
     changeCircleColorToBase()
+    await newMusic('card', randomNum)
+  //  setInt() 
     // createNewAudio(quizCard)
     
     // tempAudio = new createNewAudio(quizCard)
@@ -256,6 +279,10 @@ const isRight = (index, variantNumber) => {
     showRightAnswer();
     addScore(scoreBuffer);
     activatedNextLevelButton();
+    if (!cardAduio.paused) {
+      cardAduio.pause()
+      quizCard.querySelector('.audio__play-button').classList.remove('pause');
+    }
   } else {
     // console.log('index', index)
     scoreBuffer.add(index);
@@ -277,7 +304,7 @@ variants.forEach(el => el.style.setProperty('--circleColor', `#376588`));
 
 const playSound = (type) => {
   if (!NextLevelButton.classList.contains('quiz_button_active')) {
-    const audio = new Audio(`../assets/audio/${type}.mp3`);
+    const audio = new Audio(`./assets/audio/${type}.mp3`);
     audio.volume = 0.5;
     audio.play();
   };
@@ -305,151 +332,198 @@ const getAudioTime = (num) => {
   return `${minutes}:${String(seconds).padStart(2, 0)}`;
 };
 let interval
-class createNewAudio {
+// class createNewAudio {
 
-  constructor(parent) {
-    this.parent = parent;
-    // this.audio = audio
-  }
+//   constructor(parent) {
+//     this.parent = parent;
+//     // this.audio = audio
+//   }
 
 
 
-  async newAudio() {
-    const temp = await `${birdsData[level][randomNum].audio}`;
-  // const audio = await new Audio(`${birdsData[level][randomNum].audio}`);
-  const audio = new Audio(temp);
-  // document.querySelector('.audio__total-time').textContent = getAudioTime(audio.duration);
+//   async newAudio() {
+//     const temp = await `${birdsData[level][randomNum].audio}`;
+//   // const audio = await new Audio(`${birdsData[level][randomNum].audio}`);
+//   const audio = new Audio(temp);
+//   // document.querySelector('.audio__total-time').textContent = getAudioTime(audio.duration);
  
-  setAudioTime(audio);
-  rangeHadler(this.parent, audio);
-  volumeHandler(this.parent, audio);
-  // audioHandlers(parent)
-  // setRangeUpdate(parent)
+//   setAudioTime(audio);
+//   rangeHadler(this.parent, audio);
+//   volumeHandler(this.parent, audio);
+//   // audioHandlers(parent)
+//   // setRangeUpdate(parent)
 
 
-  // let interval
-  // // if(~~interval) {
-  //   clearInterval(interval)
-  // } else {
-  interval = setInterval(intervalHandler, 250, this.parent, audio);
-  // }
+//   // let interval
+//   // // if(~~interval) {
+//   //   clearInterval(interval)
+//   // } else {
+//   interval = setInterval(intervalHandler, 250, this.parent, audio);
+//   // }
 
 
 
-  const playAudio = () => {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    };
-  };
-  const tooglePlayButton = () => {
-    this.parent.querySelector('.audio__play-button').classList.toggle('pause');
-  };
+//   const playAudio = () => {
+//     if (audio.paused) {
+//       audio.play();
+//     } else {
+//       audio.pause();
+//     };
+//   };
+//   const tooglePlayButton = () => {
+//     this.parent.querySelector('.audio__play-button').classList.toggle('pause');
+//   };
   
-  const toogleVolumeButton = () => {
-    this.parent.querySelector('.audio__volume-button').classList.toggle('mute');
-  };
+//   const toogleVolumeButton = () => {
+//     this.parent.querySelector('.audio__volume-button').classList.toggle('mute');
+//   };
   
-  // const muteAudio = () => {
-  //   if (audio.muted) {
-  //     audio.muted = false;
-  //   } else {
-  //     audio.muted = true;
-  //   }
-  // };
-  // return audio
+//   // const muteAudio = () => {
+//   //   if (audio.muted) {
+//   //     audio.muted = false;
+//   //   } else {
+//   //     audio.muted = true;
+//   //   }
+//   // };
+//   // return audio
 
-  // function ac () {
-  //   console.log(111)
-  //   parent.removeEventListener('click', playAudio)
-  // }
+//   // function ac () {
+//   //   console.log(111)
+//   //   parent.removeEventListener('click', playAudio)
+//   // }
 
-  // parent.addEventListener('click', playAudio)
+//   // parent.addEventListener('click', playAudio)
 
 
 
-  // this.parent.querySelector('.audio__play-button').removeEventListener('click', playAudio);
-  // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
-  // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
-  // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
-  this.parent.querySelector('.audio__play-button').addEventListener('click', playAudio);
-  // this.parent.querySelector('.audio__play-button').addEventListener('click', tooglePlayButton);
-  // this.parent.querySelector('.audio__volume-button').addEventListener('click', toogleVolumeButton);
-  // this.parent.querySelector('.audio__volume-button').addEventListener('click', muteAudio);
-  audio.onended = () => tooglePlayButton();
-  // function clearAudio() {
-  //   console.log(1)
-  //   clearInterval(interval);
-  //   this.parent.querySelector('.audio__play-button').removeEventListener('click', playAudio);
-  //   // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
-  //   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
-  //   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
-  //   // parent.removeEventListener('click', playAudio)
-  // }
-  }
+//   // this.parent.querySelector('.audio__play-button').removeEventListener('click', playAudio);
+//   // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
+//   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
+//   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
+//   this.parent.querySelector('.audio__play-button').addEventListener('click', playAudio);
+//   // this.parent.querySelector('.audio__play-button').addEventListener('click', tooglePlayButton);
+//   // this.parent.querySelector('.audio__volume-button').addEventListener('click', toogleVolumeButton);
+//   // this.parent.querySelector('.audio__volume-button').addEventListener('click', muteAudio);
+//   audio.onended = () => tooglePlayButton();
+//   // function clearAudio() {
+//   //   console.log(1)
+//   //   clearInterval(interval);
+//   //   this.parent.querySelector('.audio__play-button').removeEventListener('click', playAudio);
+//   //   // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
+//   //   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
+//   //   // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
+//   //   // parent.removeEventListener('click', playAudio)
+//   // }
+//   }
 
-  // async playAudio() {
-  //   // console.log(audio)
-  //   console.log(this.audio)
-  //   if (this.audio.paused) {
-  //     this.audio.play();
-  //   } else {
-  //     this.audio.pause();
-  //   };
-  // };
+//   // async playAudio() {
+//   //   // console.log(audio)
+//   //   console.log(this.audio)
+//   //   if (this.audio.paused) {
+//   //     this.audio.play();
+//   //   } else {
+//   //     this.audio.pause();
+//   //   };
+//   // };
 
-  clearAudio() {
-    console.log(1)
-    clearInterval(interval)
-    this.parent.querySelector('.audio__play-button').removeEventListener('click',this. playAudio);
-    // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
-    // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
-    // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
-    // parent.removeEventListener('click', playAudio)
-  }
+//   clearAudio() {
+//     console.log(1)
+//     clearInterval(interval)
+//     this.parent.querySelector('.audio__play-button').removeEventListener('click',this. playAudio);
+//     // this.parent.querySelector('.audio__play-button').removeEventListener('click', tooglePlayButton);
+//     // this.parent.querySelector('.audio__volume-button').removeEventListener('click', toogleVolumeButton);
+//     // this.parent.querySelector('.audio__volume-button').removeEventListener('click', muteAudio);
+//     // parent.removeEventListener('click', playAudio)
+//   }
 
   
-}
+// }
 // createNewAudio(quizCard)
 
-const setAudioTime = (audio) => {
+let cardAduio;
+let variantAudio;
+
+const newMusic = async (type , number) => {
+  // audio = new Audio(`${birdsData[level][randomNum].audio}`)
+  let tempAudio = await `${birdsData[level][number].audio}`;
+  if (type == 'card') {
+    cardAduio = new Audio(tempAudio);
+    // quizCard.querySelector('.audio__total-time').textContent = getAudioTime(cardAduio.duration);
+    setAudioTime(quizCard, cardAduio)
+    cardAduio.onended = () => {
+      quizCard.querySelector('.audio__play-button').classList.remove('pause');
+      cardAduio.currentTime = 0;
+    }
+  
+  } else {
+    variantAudio = new Audio(tempAudio);
+    setAudioTime(variantsWrapper, variantAudio)
+    variantAudio.onended = () => {
+      variantsWrapper.querySelector('.audio__play-button').classList.remove('pause');
+      variantAudio.currentTime = 0;
+    }
+  }
+     
+  // console.log(cardAduio)
+  // setAudioTime(audio)
+  // setInt()
+}
+
+const setAudioTime = (parent, audio) => {
   audio.addEventListener(
     'loadeddata',
     () => {
-      document.querySelector('.audio__total-time').textContent = getAudioTime(audio.duration);
-      audio.volume = 0.75;
+      parent.querySelector('.audio__total-time').textContent = getAudioTime(audio.duration);
+      // audio.volume = 0.75;
     },
   );
 }
 
-const rangeHadler = (parent, audio) => {
+const rangeHadler = (parent, type) => {
+console.log(type)
   parent.querySelector('.audio__timeline').addEventListener('click', (e) => {
-    const rangeWidth = window.getComputedStyle(document.querySelector('.audio__timeline')).width;
+    let audio
+    console.log(type)
+    type == 'card' ? audio = cardAduio : audio = variantAudio;
+    console.log(audio)
+    const rangeWidth = window.getComputedStyle(parent.querySelector('.audio__timeline')).width;
     const skipTime = (e.offsetX / parseInt(rangeWidth, 10)) * audio.duration;
     audio.currentTime = skipTime;
   });
 };
 
 
-const volumeHandler = (parent, audio) => {
+const volumeHandler = (parent, type) => {
   parent.querySelector('.audio__volume-range').addEventListener('click', (e) => {
-    const volumeContainerWidth = window.getComputedStyle(document.querySelector('.audio__volume-range')).width;
+    let audio
+    console.log(type)
+    type == 'card' ? audio = cardAduio : audio = variantAudio;
+    console.log(audio)
+    const volumeContainerWidth = window.getComputedStyle(parent.querySelector('.audio__volume-range')).width;
     const skipVolume = e.offsetX / parseInt(volumeContainerWidth, 10);
     // console.log(e.offsetX)
-    console.log(volumeContainerWidth);
+    // console.log(volumeContainerWidth);
     // console.log(parseInt(volumeContainerWidth, 10))
-    console.log(skipVolume);
+    // console.log(skipVolume);
     audio.volume = skipVolume;
-    document.querySelector('.audio__value').style.width = `${skipVolume * 100}%`;
-    // console.log(audio.volume);
+    parent.querySelector('.audio__value').style.width = `${skipVolume * 100}%`;
+    console.log(audio.volume);
   });
 }
 
-const intervalHandler = (parent, audio) => {
+const intervalHandler = (parent, type) => {
+  let audio
+  type == 'card' ? audio = cardAduio : audio = variantAudio;
   parent.querySelector('.audio__progress-bar').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
   parent.querySelector('.audio__current-time').textContent = getAudioTime(audio.currentTime);
 }
+
+const setInt = (parent, type) => {
+  // clearInterval(interval)
+  interval = setInterval(intervalHandler, 250, parent, `${type}`);
+}
+
+// document.querySelector('.audio__play-button').addEventListener('click', playAudio)
 
 
 // const setRangeUpdate = (parent) => {
@@ -460,36 +534,52 @@ const intervalHandler = (parent, audio) => {
 // }
 
 
-// const playAudio = () => {
-//   if (audio.paused) {
-//     audio.play();
-//   } else {
-//     audio.pause();
-//   };
-// };
-// const tooglePlayButton = () => {
-//   parent.querySelector('.audio__play-button').classList.toggle('pause');
-// };
+const playAudio = (type) => {
+  let audio
+  type == 'card' ? audio = cardAduio : audio = variantAudio;
+  // console.log(audio)
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  };
+};
+const tooglePlayButton = (parent) => {
+  parent.querySelector('.audio__play-button').classList.toggle('pause');
+};
 
-// const toogleVolumeButton = () => {
-//   parent.querySelector('.audio__volume-button').classList.toggle('mute');
-// };
+const toogleVolumeButton = (parent) => {
+  parent.querySelector('.audio__volume-button').classList.toggle('mute');
+};
 
-// const muteAudio = () => {
-//   if (audio.muted) {
-//     audio.muted = false;
-//   } else {
-//     audio.muted = true;
-//   }
-// };
+const muteAudio = (type) => {
+  let audio
+  type == 'card' ? audio = cardAduio : audio = variantAudio;
+  // console.log(audio)
+  if (audio.muted) {
+    audio.muted = false;
+  } else {
+    audio.muted = true;
+  }
+};
 
-//  const audioHandlers = (parent) => {
-//   parent.querySelector('.audio__play-button').addEventListener('click', playAudio);
-//   parent.querySelector('.audio__play-button').addEventListener('click', tooglePlayButton);
-//   parent.querySelector('.audio__volume-button').addEventListener('click', toogleVolumeButton);
-//   parent.querySelector('.audio__volume-button').addEventListener('click', muteAudio);
-//  }
-
+ const audioHandlers = (parent, type) => {
+  // console.log(`${audio}`);
+  parent.querySelector('.audio__play-button').addEventListener('click', () => {
+    playAudio(`${type}`)
+  });
+  parent.querySelector('.audio__play-button').addEventListener('click', () => {
+    tooglePlayButton(parent)
+  });
+  parent.querySelector('.audio__volume-button').addEventListener('click', () => {
+    toogleVolumeButton(parent)
+  });
+  parent.querySelector('.audio__volume-button').addEventListener('click', () => {
+    muteAudio(`${type}`)
+  });
+  // audio.onended = () => tooglePlayButton(parent);
+ }
+//  audioHandlers(quizCard, cardAduio)
 // audio.onended = () => tooglePlayButton();
 
 // audio ends
