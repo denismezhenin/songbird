@@ -33,7 +33,7 @@ const language = [
       },
       nextLevel: {
         ru: 'Следующий уровень',
-        en: 'Start game',
+        en: 'Next level',
       },
       score: {
         ru: 'Баллы:',
