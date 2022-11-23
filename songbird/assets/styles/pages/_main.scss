@@ -10,6 +10,24 @@
   position: absolute;
   top: 70%;
   right: 20%;
+  text-align: center;
+
+  @include mobile {
+    right: 10%;
+    left: 10%;
+    // width: 100%;
+  }
+}
+
+
+
+.main-page, .gallery-page {
+  cursor: pointer;
+  padding: 5px;
+
+  &:hover {
+    color: $main-darker;
+  }
 }
 
 .quiz {
@@ -29,16 +47,21 @@ margin-bottom: 25px;
 flex-wrap: wrap;
 }
 
+@include mobile {
+  margin-bottom: 10px;
+}
+
 }
 
 .level {
   flex-grow: 1;
   text-align: center;
-padding: 5px;
+  padding: 5px;
 
-&_active {
-background-color: $main-darker;
-}
+  &_active {
+  background-color: $main-darker;
+  border-radius: 10px;
+  }
 
 }
 
@@ -51,6 +74,7 @@ background-color: $main-darker;
 
   @include mobile {
     flex-direction: column;
+    margin-bottom: 10px;
   }
 }
 .quiz__image {
@@ -74,18 +98,24 @@ margin-bottom: 25px;
 
 @include mobile {
   width: 100%;
+  margin-bottom: 10px;
 }
 }
 
 // varriant start
 
 .variant {
+  cursor: pointer;
   padding-bottom: 10px;
   border: 1px solid $audio-timeline-color;
   vertical-align: middle;
   padding: 10px;
   position: relative;
   padding-left: 20px;
+
+  &:hover {
+    background-color: $main-color;
+  }
 
   &:before {
     top: calc(50% - 0.25rem);
@@ -144,6 +174,10 @@ align-items: center;
 
 .gallery {
   margin-bottom: 20px;
+
+  @include mobile {
+    margin-bottom: 10px;
+  }
 }
 
 .gallery__list {
@@ -156,10 +190,10 @@ align-items: center;
 
 .gallery__card__wrapper {
   display: none;
+  
 
   &_active {
     display: flex;
-
     position: fixed;
     top: 0;
     left: 0;
@@ -168,7 +202,6 @@ align-items: center;
     justify-content: center;
     align-items: center;
     background-color: rgba($color: #fff, $alpha: 0.7);
-    // color: #fff;
 
     .variant__description {
       text-align: center;
@@ -180,6 +213,7 @@ align-items: center;
   margin: 5px;
 
   .img {
+    cursor: pointer;
     @include mobile {
       width: 120px;
       height: 90px;
@@ -189,7 +223,17 @@ align-items: center;
 
 .gallery__card {
   // border: 1px solid $main-color;
+  max-width: 750px;
   background-color: $second-color;
+    @include small-desktop {
+      padding: 0 30px;
+    }
+    @include tablet {
+      padding: 0 20px;
+    }
+    @include mobile {
+      padding: 0 10px;
+    }
 }
 
 // gallery ends

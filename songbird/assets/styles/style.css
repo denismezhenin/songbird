@@ -50,6 +50,21 @@
   align-items: center;
   margin: 25px 0px;
 }
+@media (max-width: 639px) {
+  .header__wrapper {
+    margin: 5px 0px;
+  }
+}
+
+.score {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.score__text, .score__number {
+  font-weight: 500;
+}
 
 .audio {
   flex-grow: 1;
@@ -77,6 +92,9 @@
   opacity: 0.8;
   cursor: pointer;
   transition: 0.3s;
+}
+.audio-icon:hover {
+  scale: 1.1;
 }
 
 .audio__play-button {
@@ -132,15 +150,54 @@
   width: 120px;
 }
 
+.button {
+  cursor: pointer;
+  background-color: rgba(244, 244, 244, 0.62);
+  border: none;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: 2px solid #e7e7e7;
+  border-radius: 10px;
+}
+
 .quiz_button {
   width: 100%;
   margin-bottom: 25px;
-  background-color: rgba(244, 244, 244, 0.62);
 }
 .quiz_button_active {
   background-color: #5b87a9;
   -webkit-backdrop-filter: blur(97px);
           backdrop-filter: blur(97px);
+}
+@media (max-width: 639px) {
+  .quiz_button {
+    margin-bottom: 10px;
+  }
+}
+
+.start__button {
+  margin-top: 10px;
+}
+.start__button:hover {
+  background-color: #5b87a9;
+}
+@media (max-width: 1599px) {
+  .start__button {
+    width: 30vw;
+  }
+}
+@media (max-width: 999px) {
+  .start__button {
+    width: 50vw;
+  }
+}
+@media (max-width: 639px) {
+  .start__button {
+    width: 100%;
+  }
 }
 
 * {
@@ -155,6 +212,21 @@ body {
   flex-wrap: wrap;
   flex-direction: column;
   background-image: url("../images/Frame-2.png");
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  font-size: 22px;
+}
+@media (max-width: 1599px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media (max-width: 999px) {
+  body {
+    font-size: 18px;
+  }
 }
 
 .wrapper {
@@ -186,6 +258,7 @@ li {
 .block__main-colored {
   background-color: #5b87a9;
   color: #fff;
+  border-radius: 10px;
 }
 
 .block__second-colored {
@@ -193,6 +266,11 @@ li {
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
   color: #000;
+  border-radius: 10px;
+}
+
+.img {
+  border-radius: 10px;
 }
 
 .main {
@@ -204,6 +282,21 @@ li {
   position: absolute;
   top: 70%;
   right: 20%;
+  text-align: center;
+}
+@media (max-width: 639px) {
+  .start {
+    right: 10%;
+    left: 10%;
+  }
+}
+
+.main-page, .gallery-page {
+  cursor: pointer;
+  padding: 5px;
+}
+.main-page:hover, .gallery-page:hover {
+  color: #376588;
 }
 
 .quiz {
@@ -225,6 +318,11 @@ li {
     flex-wrap: wrap;
   }
 }
+@media (max-width: 639px) {
+  .quiz__sections {
+    margin-bottom: 10px;
+  }
+}
 
 .level {
   flex-grow: 1;
@@ -233,6 +331,7 @@ li {
 }
 .level_active {
   background-color: #376588;
+  border-radius: 10px;
 }
 
 .quiz__card {
@@ -244,6 +343,7 @@ li {
 @media (max-width: 639px) {
   .quiz__card {
     flex-direction: column;
+    margin-bottom: 10px;
   }
 }
 
@@ -266,16 +366,21 @@ li {
 @media (max-width: 639px) {
   .quiz__variants, .quiz__variant-description {
     width: 100%;
+    margin-bottom: 10px;
   }
 }
 
 .variant {
+  cursor: pointer;
   padding-bottom: 10px;
   border: 1px solid #959191;
   vertical-align: middle;
   padding: 10px;
   position: relative;
   padding-left: 20px;
+}
+.variant:hover {
+  background-color: #5b87a9;
 }
 .variant:before {
   top: calc(50% - 0.25rem);
@@ -329,6 +434,11 @@ li {
 .gallery {
   margin-bottom: 20px;
 }
+@media (max-width: 639px) {
+  .gallery {
+    margin-bottom: 10px;
+  }
+}
 
 .gallery__list {
   display: flex;
@@ -359,6 +469,9 @@ li {
 .gallery__item {
   margin: 5px;
 }
+.gallery__item .img {
+  cursor: pointer;
+}
 @media (max-width: 639px) {
   .gallery__item .img {
     width: 120px;
@@ -367,5 +480,21 @@ li {
 }
 
 .gallery__card {
+  max-width: 750px;
   background-color: rgba(244, 244, 244, 0.62);
+}
+@media (max-width: 1599px) {
+  .gallery__card {
+    padding: 0 30px;
+  }
+}
+@media (max-width: 999px) {
+  .gallery__card {
+    padding: 0 20px;
+  }
+}
+@media (max-width: 639px) {
+  .gallery__card {
+    padding: 0 10px;
+  }
 }/*# sourceMappingURL=style.css.map */

@@ -1,9 +1,42 @@
+.button {
+    cursor: pointer;
+    background-color: $second-color;
+    border: none;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 2px solid #e7e7e7;
+    border-radius: 10px;
+}
+
 .quiz_button {
     width: 100%;
     margin-bottom: 25px;
-    background-color: $second-color;
     &_active {
         background-color: $main-color;
         backdrop-filter: blur(97px);
     }
+
+    @include mobile {
+        margin-bottom: 10px;
+      }
+}
+
+.start__button {
+    margin-top: 10px;
+    &:hover {
+        background-color: $main-color;
+    }
+    
+    @include small-desktop {
+       width: 30vw;
+      }
+      @include tablet {
+        width: 50vw;
+      }
+      @include mobile {
+        width: 100%;
+      }
 }

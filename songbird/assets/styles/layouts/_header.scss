@@ -9,4 +9,18 @@
   justify-content: space-between;
   align-items: center;
   margin: 25px 0px;
+
+  @include mobile {
+    margin: 5px 0px;
+  }
+}
+
+.score {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.score__text, .score__number {
+  font-weight: 500;
 }
