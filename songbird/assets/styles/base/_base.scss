@@ -13,7 +13,9 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background-image: url('../images/Frame-2.png');
+    background-image: url('../images/base.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -24,6 +26,12 @@
     }
     @include tablet {
       font-size: 18px;
+ 
+    }
+    @include mobile {
+      background-image: url('../images/mobile.jpg');
+      // background-size: cover;
+
     }
     // justify-content: start;
     // align-items: center;

@@ -102,6 +102,10 @@ margin-bottom: 25px;
 }
 }
 
+.quiz__variant-description {
+padding: 10px;
+}
+
 // varriant start
 
 .variant {
@@ -226,13 +230,13 @@ align-items: center;
   max-width: 750px;
   background-color: $second-color;
     @include small-desktop {
-      padding: 0 30px;
+      padding: 15px 30px;
     }
     @include tablet {
-      padding: 0 20px;
+      padding: 15px 20px;
     }
     @include mobile {
-      padding: 0 10px;
+      padding: 15px 10px;
     }
 }
 

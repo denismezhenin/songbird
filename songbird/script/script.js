@@ -3,8 +3,11 @@ import birdsDataEn from './birds-data-en.js';
 import translation from './language.js';
 
 // start screen start
-
-// let tempAudio
+const setBg = async () => {
+  let img = new Image()
+  img.src = await ('./assets/images/game.png');
+  document.body.style.backgroundImage = `url('${img.src}')`;
+}
 
 const quiz = document.querySelector('.quiz');
 const startButton = document.querySelector('.start__button');
@@ -14,6 +17,23 @@ const header = document.querySelector('.header');
 let isGameStart = false;
 
 const startGame = async () => {
+  if (!isGameStart) {
+    await setBg()
+    addEventlistenersToVariats();
+    audioHandlers(quizCard, 'card');
+    rangeHadler(quizCard, 'card');
+    volumeHandler(quizCard, 'card')
+    audioHandlers(variantsWrapper, 'variant');
+    rangeHadler(variantsWrapper, 'variant');
+    volumeHandler(variantsWrapper, 'variant')
+    setInt(quizCard, 'card')
+    setInt(variantsWrapper, 'variant')
+    setInt(gallery, 'gallery')
+    audioHandlers(gallery, 'gallery');
+    rangeHadler(gallery, 'gallert');
+    volumeHandler(gallery, 'gallery');
+  }
+  isGameStart = true;
   NextLevelButton.removeEventListener('click', nextLevel);
   NextLevelButton.classList.remove('quiz_button_active');
   quiz.style.display = 'flex';
@@ -43,22 +63,7 @@ const startGame = async () => {
   // tempAudio.playAudio()
   // quizCard.querySelector('.audio__play-button').addEventListener('click', tempAudio.playAudio);
   // ac()
-  if (!isGameStart) {
-    addEventlistenersToVariats();
-    audioHandlers(quizCard, 'card');
-    rangeHadler(quizCard, 'card');
-    volumeHandler(quizCard, 'card')
-    audioHandlers(variantsWrapper, 'variant');
-    rangeHadler(variantsWrapper, 'variant');
-    volumeHandler(variantsWrapper, 'variant')
-    setInt(quizCard, 'card')
-    setInt(variantsWrapper, 'variant')
-    setInt(gallery, 'gallery')
-    audioHandlers(gallery, 'gallery');
-    rangeHadler(gallery, 'gallert');
-    volumeHandler(gallery, 'gallery');
-  }
-  isGameStart = true;
+
 }
 
 const addEventlistenersToVariats = () => {
@@ -66,6 +71,7 @@ const addEventlistenersToVariats = () => {
     el.addEventListener('click', () => {
       // console.log(index);
       getVariant(variantsWrapper, index);
+      document.querySelector('.variant__base__words').style.display = 'none';
       isRight(index, birdsData[level][index].id);
     });
   });
@@ -240,6 +246,7 @@ const returnToBase = () => {
   variantsWrapper.style.display = 'none';
   birdImage.src = './assets/images/bird.jpg';
   birdName.textContent = '*****';
+  document.querySelector('.variant__base__words').style.display = 'block';
 };
 
 const nextLevel = async() => {

@@ -25,13 +25,16 @@
 }
 
 .start__button {
+  color: #fff;
+  width: 30vw;
     margin-top: 10px;
+    background-color: $main-color;
     &:hover {
-        background-color: $main-color;
+        background-color: $main-darker;
     }
     
     @include small-desktop {
-       width: 30vw;
+       width: 40vw;
       }
       @include tablet {
         width: 50vw;
