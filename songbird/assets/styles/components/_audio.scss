@@ -1,7 +1,5 @@
 
 .audio {
-  // background-color: black;
-  // color: white;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -60,7 +58,6 @@
     background: $main-darker;
     width: 0%;
     height: 100%;
-    // transition: 0.25s;
   }
 }
 
@@ -72,11 +69,10 @@
     position: absolute;
     left: -3px; top: 8.5px;
     z-index: -1;
-    // width: 0px;
     height: 15px;
     background: $audio-timeline-color;
     box-shadow: 0 0 20px #000a;
-    // transition: .25s;
+
     .audio__value {
       background: $main-darker;
       height: 100%;
@@ -84,11 +80,14 @@
     }
   }
   &:hover {
+
     .audio__volume-range{
       left: -121px;
       width: 120px;
     }
+
   }
+  
 }
 
 

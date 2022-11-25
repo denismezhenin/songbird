@@ -1,12 +1,8 @@
 * {
   margin: 0;
-  // padding: 0;
   box-sizing: border-box;
  }
-//  *::before,
-// *::after {
-//   box-sizing: border-box;
-// }
+
  body {
    position: relative;
 	  min-height: 100vh;
@@ -16,25 +12,11 @@
     background-image: url('../images/base.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: "Roboto", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 140%;
-    font-size: 22px;
-    @include small-desktop {
-      font-size: 20px;
-    }
-    @include tablet {
-      font-size: 18px;
- 
-    }
+    
     @include mobile {
       background-image: url('../images/mobile.jpg');
-      // background-size: cover;
-
     }
-    // justify-content: start;
-    // align-items: center;
+    
 }
 
 .wrapper {

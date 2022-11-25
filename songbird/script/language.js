@@ -28,8 +28,8 @@ const language = [
   [
     {
       startbutton: {
-       ru: 'Начать игру',
-       en: 'Start game',
+        ru: 'Начать игру',
+        en: 'Start game',
       },
       nextLevel: {
         ru: 'Следующий уровень',

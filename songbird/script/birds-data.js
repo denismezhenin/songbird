@@ -1,5 +1,5 @@
 const birdsData = [
-  [       
+  [
     {
       id: 1,
       name: 'Ворон',
