@@ -13,6 +13,7 @@ const quiz = document.querySelector('.quiz');
 const startButton = document.querySelector('.start__button');
 const startWrapper = document.querySelector('.start');
 const header = document.querySelector('.header');
+const levels = document.querySelectorAll('.level');
 // let variants = [];
 let isGameStart = false;
 
@@ -121,12 +122,14 @@ const setText = () => {
   document.querySelector('.variant__base__words').textContent = translation[1][0].variantPreview[language];
   document.querySelector('.score__text').textContent = translation[1][0].score[language];
   document.querySelector('.gallery-page').textContent = translation[1][0].gallery[language];
+  levels.forEach((el, index) => {
+    el.textContent = translation[0][index][language];
+  });
 };
 setText();
 
 language == 'en' ? birdsData = birdsDataEn : birdsData = birdsDataRu; 
 
-const levels = document.querySelectorAll('.level');
 let level = 0;
 
 // console.log(birdsData[level].sort(() => Math.random() - 0.5))
