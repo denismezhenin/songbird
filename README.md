@@ -2,7 +2,7 @@
 
 Songbird is a quizz app where you need to gues bird by its song.
 
-Deploy [link](https://news-js-denismezhenin.netlify.app/)
+Deploy [link](https://rolling-scopes-school.github.io/denismezhenin-JSFE2022Q3/songbird/)
 
 ## Key features:
 - SPA
