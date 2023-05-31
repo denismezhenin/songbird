@@ -57,7 +57,6 @@ const startGame = async () => {
 const addEventlistenersToVariats = () => {
   variants.forEach((el, index) => {
     el.addEventListener('click', () => {
-      // console.log(index);
       getVariant(variantsWrapper, index);
       document.querySelector('.variant__base__words').style.display = 'none';
       isRight(index, birdsData[level][index].id);
@@ -74,7 +73,7 @@ let birdsData;
 
 let language = localStorage.getItem('lan');
 if (!localStorage.getItem('lan')) {
-  language = 'ru';
+  language = 'en';
 }
 
 const languageSelect = document.querySelectorAll('.language-selection');
@@ -179,8 +178,6 @@ let rightAnswer;
 const getRandomNumber = () => {
   randomNum = Math.round(Math.random() * 5);
   rightAnswer = birdsData[level][randomNum].id;
-  console.log(birdsData[level][randomNum].name);
-  // console.log(randomNum)
 };
 
 const showRightAnswer = () => {
@@ -428,7 +425,6 @@ const muteAudio = (type) => {
 };
 
 const audioHandlers = (parent, type) => {
-  // console.log(`${audio}`);
   parent.querySelector('.audio__play-button').addEventListener('click', () => {
     playAudio(`${type}`);
   });
@@ -525,5 +521,3 @@ document.querySelector('.main-page').addEventListener('click', () => {
 });
 
 // gallery ends
-
-console.log('270/270. Вроде бы все сделал, если будут замечания просьба написать discord: denismezhenin, исправлю')
