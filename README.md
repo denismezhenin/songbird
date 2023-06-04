@@ -1,6 +1,6 @@
 # Songbird
 
-Songbird is a quiz app where you need to gues the bird by its voice.
+Songbird is a quiz app where you need to guess the bird by its voice.
 
 Deploy [link](https://rolling-scopes-school.github.io/denismezhenin-JSFE2022Q3/songbird/)
 
