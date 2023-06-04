@@ -1,8 +1,11 @@
 # Songbird
 
-Songbird is a quizz app where you need to gues bird by its song.
+Songbird is a quiz app where you need to gues the bird by its voice.
 
 Deploy [link](https://rolling-scopes-school.github.io/denismezhenin-JSFE2022Q3/songbird/)
+
+![1](https://github.com/denismezhenin/songbird/assets/103366013/0d41b955-b080-427f-af38-63c529ead7b0)
+![2](https://github.com/denismezhenin/songbird/assets/103366013/c1574f34-6d8d-4961-b411-03ed4c1352f5)
 
 ## Key features:
 - SPA with custom routing system (move between pages without reload)
@@ -14,7 +17,6 @@ Deploy [link](https://rolling-scopes-school.github.io/denismezhenin-JSFE2022Q3/s
 - Sound accompaniment
 
 ## Stack
-- HTML
+- Javascript
 - SASS
-- Jvascript
 - ESLint
